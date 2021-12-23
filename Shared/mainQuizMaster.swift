@@ -13,6 +13,7 @@
 
 import SwiftUI
 
+
 /*
  
  Results:
@@ -30,13 +31,17 @@ import SwiftUI
  if quizzer now has 4 errors: Notify "[quizzer] has quizzed out."
  */
 
+extension Sequence where Element: AdditiveArithmetic {
+    func sum() -> Element { reduce(.zero, +) }
+}
+
 class quizStuff: ObservableObject {
     struct side {
         var buttonColor = Color.gray
         var color: Color
         var isSelected = false
         var score = 0
-        var corrT = 0
+        var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
         var errT = 0
         struct quizer {
             var corr = Array(repeating: 0, count: 26)
@@ -56,7 +61,12 @@ class quizStuff: ObservableObject {
     }
     @Published public var left = side(color: Color.orange)
     @Published public var right = side(color: Color.blue)
-    
+    @Published public var empty = side(color: Color.gray)
+    init (leftColor: Color, rightColor: Color) {
+        self.left.color = leftColor
+        self.right.color = rightColor
+        
+    }
     var questionNum = 1
     var boxStates = [
         1: "Standby",
@@ -69,27 +79,28 @@ class quizStuff: ObservableObject {
     var boxState = 1
     var quizerPicker: Int = 1
     var activeSide: String = ""
-    func jump(side: String) {
-        switch side {
-            case "left":
-                self.left.isSelected = true
-                self.right.isSelected = false
-                self.left.buttonColor = left.color
-                self.right.buttonColor = Color.gray
-                self.activeSide = "left"
-            case "right":
-                self.left.isSelected = false
-                self.right.isSelected = true
-                self.left.buttonColor =  Color.gray
-                self.right.buttonColor = self.right.color
-                self.activeSide = "right"
-            default:
-                exit(1)
+    @discardableResult func jump(side: String) -> String? {
+        var team = self.empty
+        var notTeam = self.empty
+        if activeSide == "left"  {
+            team = left
+            notTeam = right
         }
+        else if activeSide == "right" {
+            team = right
+            notTeam = left
+        }
+        else {return "error: jump"}
+        team.isSelected = true
+        notTeam.isSelected = false
+        team.buttonColor = team.color
+        notTeam.buttonColor = Color.gray
+        return nil
     }
+    
     func disArm() {
-        self.left.isSelected = false
-        self.right.isSelected = false
+        left.isSelected = false
+        right.isSelected = false
         left.buttonColor = Color.gray
         right.buttonColor = Color.gray
         
@@ -98,196 +109,58 @@ class quizStuff: ObservableObject {
         disArm()
     }
     @discardableResult func quesAns(ansType: Bool) -> String? {
-        if !self.left.isSelected && !self.right.isSelected {
-            return nil
-        }
+        var team = self.empty
+        var quizzer = team.quizzer.q1
         
-        var corr: Int = 0
-        var err: Int = 0
-        var errT: Int = 0
+        if activeSide == "left"  {team = self.left}
+        else if activeSide == "right" {team = self.left}
+        else {return "error"}
         
-        if self.left.isSelected {
-            errT = self.left.errT
-            switch self.quizerPicker {
-                case 1:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 2:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 3:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 4:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 5:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 6:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                case 7:
-                    corr = self.left.quizzer.q1.corr.reduce(0, +)
-                    err = self.left.quizzer.q1.err.reduce(0, +)
-                    
-                default:
-                    exit(1)
-            }
-        }
-        else if self.right.isSelected  {
-            errT = self.right.errT
-            switch self.quizerPicker {
-                case 1:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 2:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 3:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 4:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 5:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 6:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                case 7:
-                    corr = self.right.quizzer.q1.corr.reduce(0, +)
-                    err = self.right.quizzer.q1.err.reduce(0, +)
-                    
-                default:
-                    exit(1)
-            }
+
+        switch quizerPicker { //give correct answer to respective quizzer
+            case 1:
+                quizzer = team.quizzer.q1
+            case 2:
+                quizzer = team.quizzer.q2
+            case 3:
+                quizzer = team.quizzer.q3
+            case 4:
+                quizzer = team.quizzer.q4
+            case 5:
+                quizzer = team.quizzer.q5
+            case 6:
+                quizzer = team.quizzer.q6
+            case 7:
+                quizzer = team.quizzer.q7
+            default:
+                return "quizzerPicker is invalid"
         }
         switch ansType {
             case true:
-                if self.left.isSelected {
-                    self.left.score += 20
-                    switch self.quizerPicker {
-                        case 1:
-                            self.left.quizzer.q1.corr[Int(questionNum-1)] = 1
-                        case 2:
-                            self.left.quizzer.q2.corr[Int(questionNum-1)] = 1
-                        case 3:
-                            self.left.quizzer.q3.corr[Int(questionNum-1)] = 1
-                        case 4:
-                            self.left.quizzer.q4.corr[Int(questionNum-1)] = 1
-                        case 5:
-                            self.left.quizzer.q5.corr[Int(questionNum-1)] = 1
-                        case 6:
-                            self.left.quizzer.q6.corr[Int(questionNum-1)] = 1
-                        case 7:
-                            self.left.quizzer.q7.corr[Int(questionNum-1)] = 1
-                            
-                        default:
-                            exit(1)
+                team.score += 20
+                quizzer.corr[Int(questionNum-1)] = 1
+                let err = quizzer.err.sum()
+                let corr = quizzer.corr.sum()
+                if corr == 5 { //Check quizOut
+                    if err == 0 { //Check w/o errors
+                        //"Congratulations to \(quizzer.name) for quizzing out with out errors!"
+                        team.score += 20
+                    } else {
+                        //Notify: "Congratulations to \(quizzer.name) for quizzing out!"
                     }
                 }
-                else {
-                    self.right.score += 20
-                    switch self.quizerPicker {
-                        case 1:
-                            self.right.quizzer.q1.corr[Int(questionNum-1)] = 1
-                        case 2:
-                            self.right.quizzer.q2.corr[Int(questionNum-1)] = 1
-                        case 3:
-                            self.right.quizzer.q3.corr[Int(questionNum-1)] = 1
-                        case 4:
-                            self.right.quizzer.q4.corr[Int(questionNum-1)] = 1
-                        case 5:
-                            self.right.quizzer.q5.corr[Int(questionNum-1)] = 1
-                        case 6:
-                            self.right.quizzer.q6.corr[Int(questionNum-1)] = 1
-                        case 7:
-                            self.right.quizzer.q7.corr[Int(questionNum-1)] = 1
-                            
-                        default:
-                            exit(1)
-                    }
-                    
+                team.corrT += 1
+                if team.corrT == 5 {
+                    //"Congratulations to \(team.name) for getting a team bonus!"
                 }
-                if corr == 4 {
-                    if err == 0 {
-                        if self.left.isSelected {
-                            self.left.score += 20
-                        }
-                        else {
-                            self.right.score += 20
-                        }
-                        
-                        
-                        
-                        //Disable [quizer]
-                    } // Check Quizout w/o errors
-                    else { /*PopUp: "[quizzer] has quizzed out!"; Disable [quizer]*/
-                        
-                    }
-                    
-                } // Check Quizout
-                //Check team bonus
-                
             case false:
-                if (self.questionNum >= 16) || errT > 3 {
-                    if self.left.isSelected {
-                        self.left.score -= 10
-                        self.left.errT += 1
-                        switch self.quizerPicker {
-                            case 1:
-                                self.left.quizzer.q1.err[Int(questionNum-1)] = 1
-                            case 2:
-                                self.left.quizzer.q2.err[Int(questionNum-1)] = 1
-                            case 3:
-                                self.left.quizzer.q3.err[Int(questionNum-1)] = 1
-                            case 4:
-                                self.left.quizzer.q4.err[Int(questionNum-1)] = 1
-                            case 5:
-                                self.left.quizzer.q5.err[Int(questionNum-1)] = 1
-                            case 6:
-                                self.left.quizzer.q6.err[Int(questionNum-1)] = 1
-                            case 7:
-                                self.left.quizzer.q7.err[Int(questionNum-1)] = 1
-                                
-                            default:
-                                exit(1)
-                        }
-                    }
-                    else {
-                        self.right.score -= 10
-                        self.right.errT += 1
-                        switch self.quizerPicker {
-                            case 1:
-                                self.right.quizzer.q1.err[Int(questionNum-1)] = 1
-                            case 2:
-                                self.right.quizzer.q2.err[Int(questionNum-1)] = 1
-                            case 3:
-                                self.right.quizzer.q3.err[Int(questionNum-1)] = 1
-                            case 4:
-                                self.right.quizzer.q4.err[Int(questionNum-1)] = 1
-                            case 5:
-                                self.right.quizzer.q5.err[Int(questionNum-1)] = 1
-                            case 6:
-                                self.right.quizzer.q6.err[Int(questionNum-1)] = 1
-                            case 7:
-                                self.right.quizzer.q7.err[Int(questionNum-1)] = 1
-                                
-                            default:
-                                exit(1)
-                        }
-                        
-                    }
-                }
-                if err == 4 {
-                    
-                    //PopUp: "[quizzer] has quizzed out without errors!"
-                    //Disable [quizer]
+                quizzer.err[Int(questionNum-1)] = 1
+                team.errT += 1
+                if quizzer.err.sum() == 4 { //Check quizOut
+                    //Notify: "\(Quizzer) quizzed out!"
                 }
         }
-        self.questionNum += 1
+        questionNum += 1
         disArm()
         return nil
     }
@@ -298,7 +171,7 @@ class quizStuff: ObservableObject {
 
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
-    @ObservedObject var quiz = quizStuff()
+    @ObservedObject var quiz = quizStuff(leftColor: Color.cyan, rightColor: Color.orange)
     var body: some View {
         VStack{
             HStack {
@@ -402,11 +275,7 @@ struct mainQuizMaster: View {
                             .padding(10.0)
                             .foregroundColor(Color.white)
                     }
-                    /* .alert(isPresented: quiz.$showingQuizOut) {
-                     Alert(title: Text("Quizzed Out!"), message: Text("Quizzer #\(quiz.quizerPicker) on the \( quiz.activeSide ) has quizzed out!"), dismissButton: .default(Text("OK")))
-                     } */
-                    
-                }
+                } // Incorrect
                 Spacer()
                 Button {
                     if quiz.left.isSelected || quiz.right.isSelected {
@@ -423,12 +292,14 @@ struct mainQuizMaster: View {
                             .foregroundColor(Color.white)
                             .padding(10.0)
                     }
-                }
+                } // Correct
                 Spacer()
                 
             } //Correct/incorrect bar
             HStack {
-                Button {} label: {
+                Button {
+                    appState.UiState = 4
+                } label: {
                     ZStack {
                         Circle()
                             .fill(Color.gray)
@@ -466,6 +337,20 @@ struct mainQuizMaster: View {
                             .frame(width: 100, height: 100)
                             .border(Color("AccentColor"))
                         Text(" Timer ").foregroundColor(Color.white)
+                            .padding(10.0)
+                    }
+                }
+                Spacer()
+                Button {
+                    appState.UiState = 0
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray)
+                            .aspectRatio(0.75, contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                            .border(Color("AccentColor"))
+                        Text(" Setup ").foregroundColor(Color.white)
                             .padding(10.0)
                     }
                 }

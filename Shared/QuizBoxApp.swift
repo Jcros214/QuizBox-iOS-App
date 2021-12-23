@@ -17,7 +17,7 @@ class AppState: ObservableObject {
 
 @main
 struct QuizBoxApp: App {
-    @StateObject var appState = AppState(hasOnboarded: 0)
+    @StateObject var appState = AppState(hasOnboarded: 1)
     var body: some Scene {
         WindowGroup {
             switch appState.UiState {
@@ -32,6 +32,9 @@ struct QuizBoxApp: App {
                         .environmentObject(appState)
                 case 3:
                     connectBoxView()
+                        .environmentObject(appState)
+                case 4:
+                    ActsView()
                         .environmentObject(appState)
                 default:
                     exit(1)
