@@ -10,10 +10,7 @@
  Determine points from question result
  
  */
-
 import SwiftUI
-
-
 /*
  
  Results:
@@ -30,44 +27,43 @@ import SwiftUI
  if in error zone or team has >3 errors: -10
  if quizzer now has 4 errors: Notify "[quizzer] has quizzed out."
  */
-
 extension Sequence where Element: AdditiveArithmetic {
     func sum() -> Element { reduce(.zero, +) }
 }
-
 class quizStuff: ObservableObject {
+    
+    struct quizzerIndividual {
+        var corr = Array(repeating: 0, count: 26)
+        var err = Array(repeating: 0, count: 26)
+        var isStanding = false
+    }
+    struct humanFrindlyIDs {
+        var name: String
+    }
     struct side {
+        var _name: String
+        var humanID = humanFrindlyIDs(name: "Team 1")
         var buttonColor = Color.gray
         var color: Color
         var isSelected = false
         var score = 0
         var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
         var errT = 0
-        struct quizer {
-            var corr = Array(repeating: 0, count: 26)
-            var err = Array(repeating: 0, count: 26)
-            var isStanding = false
-        }
-        struct quizzzer {
-            var q1 = quizer()
-            var q2 = quizer()
-            var q3 = quizer()
-            var q4 = quizer()
-            var q5 = quizer()
-            var q6 = quizer()
-            var q7 = quizer()
-        }
-        var quizzer = quizzzer()
+        var quizzer = [
+            quizzerIndividual(),
+            quizzerIndividual(),
+            quizzerIndividual(),
+            quizzerIndividual(),
+            quizzerIndividual(),
+            quizzerIndividual(),
+            quizzerIndividual()
+        ]
     }
-    @Published public var left = side(color: Color.orange)
-    @Published public var right = side(color: Color.blue)
-    @Published public var empty = side(color: Color.gray)
-    init (leftColor: Color, rightColor: Color) {
-        self.left.color = leftColor
-        self.right.color = rightColor
-        
-    }
-    var questionNum = 1
+    @Published public var left: side
+    @Published public var right: side
+    @Published public var empty: side
+    
+    var questionNum = 0
     var boxStates = [
         1: "Standby",
         2: "Waiting",
@@ -77,26 +73,8 @@ class quizStuff: ObservableObject {
         2: Color.gray,
         3: Color.orange]
     var boxState = 1
-    var quizerPicker: Int = 1
-    var activeSide: String = ""
-    @discardableResult func jump(side: String) -> String? {
-        var team = self.empty
-        var notTeam = self.empty
-        if activeSide == "left"  {
-            team = left
-            notTeam = right
-        }
-        else if activeSide == "right" {
-            team = right
-            notTeam = left
-        }
-        else {return "error: jump"}
-        team.isSelected = true
-        notTeam.isSelected = false
-        team.buttonColor = team.color
-        notTeam.buttonColor = Color.gray
-        return nil
-    }
+    var quizerPicker = 1
+    var activeSide: Bool = false
     
     func disArm() {
         left.isSelected = false
@@ -108,33 +86,41 @@ class quizStuff: ObservableObject {
     func reset() {
         disArm()
     }
+    func text() {}
+    func foul() {}
+    func timer() {}
+    func printStats() {}
+    
+    @discardableResult func jump() -> String? {
+        var team = self.right
+        var notTeam = self.left
+        if activeSide { //right
+        } else { //left
+            team = self.left
+            notTeam = self.right            
+        }
+
+        team.isSelected = true
+        team.buttonColor = right.color
+        notTeam.isSelected = false
+        notTeam.buttonColor = .gray
+        return nil
+    }
     @discardableResult func quesAns(ansType: Bool) -> String? {
-        var team = self.empty
-        var quizzer = team.quizzer.q1
+        var team: side
+        var quizzer: quizzerIndividual
         
-        if activeSide == "left"  {team = self.left}
-        else if activeSide == "right" {team = self.left}
-        else {return "error"}
+        if activeSide {
+            team = right
+        } else if !activeSide {
+            team = left
+        } else {
+            exit(1)
+        }
         
 
-        switch quizerPicker { //give correct answer to respective quizzer
-            case 1:
-                quizzer = team.quizzer.q1
-            case 2:
-                quizzer = team.quizzer.q2
-            case 3:
-                quizzer = team.quizzer.q3
-            case 4:
-                quizzer = team.quizzer.q4
-            case 5:
-                quizzer = team.quizzer.q5
-            case 6:
-                quizzer = team.quizzer.q6
-            case 7:
-                quizzer = team.quizzer.q7
-            default:
-                return "quizzerPicker is invalid"
-        }
+        quizzer = team.quizzer[quizerPicker + 1]
+        
         switch ansType {
             case true:
                 team.score += 20
@@ -164,14 +150,18 @@ class quizStuff: ObservableObject {
         disArm()
         return nil
     }
-    func text() {}
-    func foul() {}
-    func timer() {}
+
+    init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
+        left  = side( _name: "left" , color: leftColor)
+        right = side( _name: "right", color: rightColor)
+        empty = side( _name: "empty", color: .gray)
+    }
 }
+
 
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
-    @ObservedObject var quiz = quizStuff(leftColor: Color.cyan, rightColor: Color.orange)
+    @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .cyan, rightName: "right", rightColor: .red)
     var body: some View {
         VStack{
             HStack {
@@ -200,7 +190,8 @@ struct mainQuizMaster: View {
             Group  {
                 HStack {
                     Button {
-                        quiz.jump(side: "left")
+                        quiz.activeSide = false
+                        quiz.jump()
                     } label: {
                         VStack{
                             Text("Left Team")
@@ -213,7 +204,8 @@ struct mainQuizMaster: View {
                     }
                     Spacer()
                     Button {
-                        quiz.jump(side: "right")
+                        quiz.activeSide = true
+                        quiz.jump()
                     } label: {
                         VStack{
                             Text("Right Team")
@@ -314,7 +306,9 @@ struct mainQuizMaster: View {
                     }
                 }
                 Spacer()
-                Button {} label: {
+                Button {
+                    quiz.printStats()
+                } label: {
                     ZStack {
                         Circle()
                             .fill(Color.gray)
@@ -322,7 +316,7 @@ struct mainQuizMaster: View {
                             .frame(width: 100, height: 100)
                             .border(Color("AccentColor"))
                         
-                        Text(" Foul ")
+                        Text(" Print Debug ")
                             .foregroundColor(Color.white)
                             .padding(10.0)
                         
