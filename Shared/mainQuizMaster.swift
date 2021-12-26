@@ -97,13 +97,22 @@ class quizStuff: ObservableObject {
         if activeSide { //right
         } else { //left
             team = self.left
-            notTeam = self.right            
+            notTeam = self.right
         }
-
+        
         team.isSelected = true
-        team.buttonColor = right.color
+        team.buttonColor = team.color
+        
         notTeam.isSelected = false
         notTeam.buttonColor = .gray
+
+        print("\(right._name)'s Button Color is: \(right.buttonColor)")
+        print("\(left._name)'s Button Color is: \(left.buttonColor)")
+        print("\(right._name)'s isSelected value is: \(right.isSelected)")
+        print("\(left._name)'s isSelected value is: \(left.isSelected)")
+        
+        
+        
         return nil
     }
     @discardableResult func quesAns(ansType: Bool) -> String? {
@@ -117,8 +126,6 @@ class quizStuff: ObservableObject {
         } else {
             exit(1)
         }
-        
-
         quizzer = team.quizzer[quizerPicker + 1]
         
         switch ansType {
@@ -150,20 +157,17 @@ class quizStuff: ObservableObject {
         disArm()
         return nil
     }
-
     init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
         left  = side( _name: "left" , color: leftColor)
         right = side( _name: "right", color: rightColor)
         empty = side( _name: "empty", color: .gray)
     }
 }
-
-
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .cyan, rightName: "right", rightColor: .red)
     var body: some View {
-        VStack{
+        VStack {
             HStack {
                 Button {
                     quiz.questionNum -= 1
@@ -252,6 +256,7 @@ struct mainQuizMaster: View {
             HStack {
                 Spacer()
                 Button {
+                    print("Incorrect Pressed", quiz.left.isSelected, quiz.right.isSelected)
                     if quiz.left.isSelected || quiz.right.isSelected {
                         quiz.quesAns(ansType: false)
                     }
@@ -270,6 +275,7 @@ struct mainQuizMaster: View {
                 } // Incorrect
                 Spacer()
                 Button {
+                    print("Correct Pressed", quiz.left.isSelected, quiz.right.isSelected)
                     if quiz.left.isSelected || quiz.right.isSelected {
                         quiz.quesAns(ansType: true)
                     }
