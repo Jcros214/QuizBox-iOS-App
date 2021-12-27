@@ -30,51 +30,53 @@ import SwiftUI
 extension Sequence where Element: AdditiveArithmetic {
     func sum() -> Element { reduce(.zero, +) }
 }
+
+struct quizzerIndividual {
+    var corr = Array(repeating: 0, count: 26)
+    var err = Array(repeating: 0, count: 26)
+    var isStanding = false
+}
+class side {
+    var _name: String
+    var buttonColor = Color.gray
+    var _color: Color
+    var isSelected = false
+    var score = 0
+    var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
+    var errT = 0
+    var quizzer = [
+        quizzerIndividual(),
+        quizzerIndividual(),
+        quizzerIndividual(),
+        quizzerIndividual(),
+        quizzerIndividual(),
+        quizzerIndividual(),
+        quizzerIndividual()
+    ]
+    init( name: String , color: Color) {
+        _name = name
+        _color = color
+    }
+}
+
+
 class quizStuff: ObservableObject {
-    
-    struct quizzerIndividual {
-        var corr = Array(repeating: 0, count: 26)
-        var err = Array(repeating: 0, count: 26)
-        var isStanding = false
-    }
-    struct humanFrindlyIDs {
-        var name: String
-    }
-    struct side {
-        var _name: String
-        var humanID = humanFrindlyIDs(name: "Team 1")
-        var buttonColor = Color.gray
-        var color: Color
-        var isSelected = false
-        var score = 0
-        var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
-        var errT = 0
-        var quizzer = [
-            quizzerIndividual(),
-            quizzerIndividual(),
-            quizzerIndividual(),
-            quizzerIndividual(),
-            quizzerIndividual(),
-            quizzerIndividual(),
-            quizzerIndividual()
-        ]
-    }
     @Published public var left: side
     @Published public var right: side
     @Published public var empty: side
     
-    var questionNum = 0
-    var boxStates = [
+    @Published var questionNum = 1
+    @Published var boxStates = [
         1: "Standby",
         2: "Waiting",
         3: "Ready"]
-    var boxColors = [
+    @Published var boxColors = [
         1: Color.green,
         2: Color.gray,
         3: Color.orange]
-    var boxState = 1
-    var quizerPicker = 1
-    var activeSide: Bool = false
+    @Published var boxState = 1
+    @Published var quizerPicker = 1
+    @Published var activeSide: Bool = false
     
     func disArm() {
         left.isSelected = false
@@ -101,7 +103,7 @@ class quizStuff: ObservableObject {
         }
         
         team.isSelected = true
-        team.buttonColor = team.color
+        team.buttonColor = team._color
         
         notTeam.isSelected = false
         notTeam.buttonColor = .gray
@@ -120,9 +122,9 @@ class quizStuff: ObservableObject {
         var quizzer: quizzerIndividual
         
         if activeSide {
-            team = right
+            team = self.right
         } else if !activeSide {
-            team = left
+            team = self.left
         } else {
             exit(1)
         }
@@ -134,10 +136,11 @@ class quizStuff: ObservableObject {
                 quizzer.corr[Int(questionNum-1)] = 1
                 let err = quizzer.err.sum()
                 let corr = quizzer.corr.sum()
+                print(team._name, corr)
                 if corr == 5 { //Check quizOut
+                    team.score += 20
                     if err == 0 { //Check w/o errors
                         //"Congratulations to \(quizzer.name) for quizzing out with out errors!"
-                        team.score += 20
                     } else {
                         //Notify: "Congratulations to \(quizzer.name) for quizzing out!"
                     }
@@ -158,9 +161,9 @@ class quizStuff: ObservableObject {
         return nil
     }
     init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
-        left  = side( _name: "left" , color: leftColor)
-        right = side( _name: "right", color: rightColor)
-        empty = side( _name: "empty", color: .gray)
+        left  = side( name: "left" , color: leftColor)
+        right = side( name: "right", color: rightColor)
+        empty = side( name: "empty", color: .gray)
     }
 }
 struct mainQuizMaster: View {
@@ -191,7 +194,7 @@ struct mainQuizMaster: View {
                         .cornerRadius(50.0)
                 }//Next
             } //Navigation Bar ////
-            Group  {
+            VStack  {
                 HStack {
                     Button {
                         quiz.activeSide = false
@@ -203,9 +206,9 @@ struct mainQuizMaster: View {
                                 .padding()
                                 .background(quiz.left.buttonColor)
                                 .cornerRadius(50.0)
-                            Text(String(quiz.left.score))
+                            Text(String(quiz.left.score)).foregroundColor(Color.black)
                         }
-                    }
+                    } // Left jump
                     Spacer()
                     Button {
                         quiz.activeSide = true
@@ -217,24 +220,25 @@ struct mainQuizMaster: View {
                                 .padding()
                                 .background(quiz.right.buttonColor)
                                 .cornerRadius(50.0)
-                            Text(String(quiz.right.score))
+                            Text(String(quiz.right.score)).foregroundColor(Color.black)
                         }
-                    }
-                }
-                Picker(selection: $quiz.quizerPicker, label: Text("Seat #")) {
-                    Text("Quizer #1").tag(1)
-                    Text("Quizer #2").tag(2)
-                    Text("Quizer #3").tag(3)
-                    Text("Quizer #4").tag(4)
-                    Text("Quizer #5").tag(5)
+                    } // Right jump
                 }
             } //TEMP: Choose Team (test quiz.jump())
+            Picker(selection: $quiz.quizerPicker, label: Text("Seat #").foregroundColor(.orange)) {
+                Text("Quizer #1").tag(1).foregroundColor(.orange)
+                Text("Quizer #2").tag(2).foregroundColor(.orange)
+                Text("Quizer #3").tag(3).foregroundColor(.orange)
+                Text("Quizer #4").tag(4).foregroundColor(.orange)
+                Text("Quizer #5").tag(5).foregroundColor(.orange)
+            }
             Group  {
-                Text("Question #"+String(quiz.questionNum))
-                Spacer()
+                Text("Question #"+String(quiz.questionNum)).padding(.bottom)
+                
                 Text("Question from Database")
                 Spacer()
                 Text("A: From Database")
+                Spacer()
                 Spacer()
             } //Question/Ans (work on db)
             HStack {
