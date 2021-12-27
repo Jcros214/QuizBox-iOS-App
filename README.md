@@ -8,3 +8,7 @@ An iOS app to control a 'QuizBox'.
   * *Quizzing out*
   * *Team Bonus*
 * *Publish results to Quiz/Tournamnet Manager*
+
+# Current Ways to break:
+* Go to previous question and change from correct to incorrect
+* 
