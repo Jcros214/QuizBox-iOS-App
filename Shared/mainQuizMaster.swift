@@ -27,14 +27,11 @@ import SwiftUI
  if in error zone or team has >3 errors: -10
  if quizzer now has 4 errors: Notify "[quizzer] has quizzed out."
  */
-extension Sequence where Element: AdditiveArithmetic {
-    func sum() -> Element { reduce(.zero, +) }
-}
-
-struct quizzerIndividual {
+class quizzerIndividual {
     var corr = Array(repeating: 0, count: 26)
     var err = Array(repeating: 0, count: 26)
-    var isStanding = false
+    var isEnabled = true
+    
 }
 class side {
     var _name: String
@@ -58,8 +55,6 @@ class side {
         _color = color
     }
 }
-
-
 class quizStuff: ObservableObject {
     @Published public var left: side
     @Published public var right: side
@@ -107,14 +102,6 @@ class quizStuff: ObservableObject {
         
         notTeam.isSelected = false
         notTeam.buttonColor = .gray
-
-        print("\(right._name)'s Button Color is: \(right.buttonColor)")
-        print("\(left._name)'s Button Color is: \(left.buttonColor)")
-        print("\(right._name)'s isSelected value is: \(right.isSelected)")
-        print("\(left._name)'s isSelected value is: \(left.isSelected)")
-        
-        
-        
         return nil
     }
     @discardableResult func quesAns(ansType: Bool) -> String? {
@@ -129,16 +116,19 @@ class quizStuff: ObservableObject {
             exit(1)
         }
         quizzer = team.quizzer[quizerPicker + 1]
-        
+        if !quizzer.isEnabled {return nil}
         switch ansType {
             case true:
                 team.score += 20
+                print("Before: ", quizzer.corr.reduce(0, +))
                 quizzer.corr[Int(questionNum-1)] = 1
-                let err = quizzer.err.sum()
-                let corr = quizzer.corr.sum()
+                print("After: ", quizzer.corr.reduce(0, +))
+                let err = quizzer.err.reduce(0, +)
+                let corr = quizzer.corr.reduce(0, +)
                 print(team._name, corr)
                 if corr == 5 { //Check quizOut
                     team.score += 20
+                    quizzer.isEnabled = false
                     if err == 0 { //Check w/o errors
                         //"Congratulations to \(quizzer.name) for quizzing out with out errors!"
                     } else {
@@ -152,7 +142,8 @@ class quizStuff: ObservableObject {
             case false:
                 quizzer.err[Int(questionNum-1)] = 1
                 team.errT += 1
-                if quizzer.err.sum() == 4 { //Check quizOut
+                if quizzer.err.reduce(0, +) == 4 { //Check quizOut
+                    quizzer.isEnabled = false
                     //Notify: "\(Quizzer) quizzed out!"
                 }
         }
@@ -260,7 +251,6 @@ struct mainQuizMaster: View {
             HStack {
                 Spacer()
                 Button {
-                    print("Incorrect Pressed", quiz.left.isSelected, quiz.right.isSelected)
                     if quiz.left.isSelected || quiz.right.isSelected {
                         quiz.quesAns(ansType: false)
                     }
@@ -279,7 +269,6 @@ struct mainQuizMaster: View {
                 } // Incorrect
                 Spacer()
                 Button {
-                    print("Correct Pressed", quiz.left.isSelected, quiz.right.isSelected)
                     if quiz.left.isSelected || quiz.right.isSelected {
                         quiz.quesAns(ansType: true)
                     }
