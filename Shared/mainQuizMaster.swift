@@ -64,11 +64,15 @@ class quizStuff: ObservableObject {
     @Published var boxStates = [
         1: "Standby",
         2: "Waiting",
-        3: "Ready"]
+        3: "Ready",
+        4: "Standing"
+    ]
     @Published var boxColors = [
         1: Color.green,
-        2: Color.gray,
-        3: Color.orange]
+        2: Color.cyan,
+        3: Color.orange,
+        4: Color.orange,
+        ]
     @Published var boxState = 1
     @Published var quizerPicker = 1
     @Published var activeSide: Bool = false
@@ -82,11 +86,23 @@ class quizStuff: ObservableObject {
     }
     func reset() {
         disArm()
+        switch boxState {
+            case 1:
+                boxState=2
+            case 2:
+                boxState=3
+            case 3:
+                boxState=1
+            default:
+                exit(1)
+        }
     }
     func text() {}
     func foul() {}
     func timer() {}
-    func printStats() {}
+    func printStats() {
+        print("BoxState: \(self.boxState)")
+    }
     
     @discardableResult func jump() -> String? {
         var team = self.right
@@ -160,6 +176,11 @@ class quizStuff: ObservableObject {
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .cyan, rightName: "right", rightColor: .red)
+    
+    @State private var myRed: Double = 0
+    @State private var myGreen: Double = 0
+    @State private var myBlue: Double = 0
+    
     var body: some View {
         VStack {
             HStack {
@@ -185,38 +206,36 @@ struct mainQuizMaster: View {
                         .cornerRadius(50.0)
                 }//Next
             } //Navigation Bar ////
-            VStack  {
-                HStack {
-                    Button {
-                        quiz.activeSide = false
-                        quiz.jump()
-                    } label: {
-                        VStack{
-                            Text("Left Team")
-                                .foregroundColor(Color.white)
-                                .padding()
-                                .background(quiz.left.buttonColor)
-                                .cornerRadius(50.0)
-                            Text(String(quiz.left.score)).foregroundColor(Color.black)
-                        }
-                    } // Left jump
-                    Spacer()
-                    Button {
-                        quiz.activeSide = true
-                        quiz.jump()
-                    } label: {
-                        VStack{
-                            Text("Right Team")
-                                .foregroundColor(Color.white)
-                                .padding()
-                                .background(quiz.right.buttonColor)
-                                .cornerRadius(50.0)
-                            Text(String(quiz.right.score)).foregroundColor(Color.black)
-                        }
-                    } // Right jump
-                }
-            } //TEMP: Choose Team (test quiz.jump())
-            Picker(selection: $quiz.quizerPicker, label: Text("Seat #").foregroundColor(.orange)) {
+            HStack {
+                Button {
+                    quiz.activeSide = false
+                    quiz.jump()
+                } label: {
+                    VStack{
+                        Text("Left Team")
+                            .foregroundColor(Color.white)
+                            .padding()
+                            .background(quiz.left.buttonColor)
+                            .cornerRadius(50.0)
+                        Text(String(quiz.left.score)).foregroundColor(Color.black)
+                    }
+                } // Left jump
+                Spacer()
+                Button {
+                    quiz.activeSide = true
+                    quiz.jump()
+                } label: {
+                    VStack{
+                        Text("Right Team")
+                            .foregroundColor(Color.white)
+                            .padding()
+                            .background(quiz.right.buttonColor)
+                            .cornerRadius(50.0)
+                        Text(String(quiz.right.score)).foregroundColor(Color.black)
+                    }
+                } // Right jump
+            }//TEMP: Choose Team (test quiz.jump())
+            Picker (selection: $quiz.quizerPicker, label: Text("Seat #").foregroundColor(.orange)) {
                 Text("Quizer #1").tag(1).foregroundColor(.orange)
                 Text("Quizer #2").tag(2).foregroundColor(.orange)
                 Text("Quizer #3").tag(3).foregroundColor(.orange)
@@ -232,19 +251,43 @@ struct mainQuizMaster: View {
                 Spacer()
                 Spacer()
             } //Question/Ans (work on db)
-            HStack {
-                Button {
-                    quiz.reset()
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.yellow)
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(width: 125, height: 125)
-                            .border(Color("AccentColor"))
-                        Text(" Reset ")
-                            .padding(10.0)
-                            .foregroundColor(Color.white)
+            VStack {
+                Circle()
+                    .fill(quiz.boxColors[ quiz.boxState ] ?? Color.gray)
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .border(Color("AccentColor"))
+                    .padding(.all)
+                    .foregroundColor(Color(red: myRed,green: myGreen,blue: myBlue))
+                    .onAppear{
+                        withAnimation{
+                            myRed = 0.5
+                            myGreen = 0.5
+                            myBlue = 0
+                        }
+                    }
+                    .animation(Animation.easeInOut(duration:0.25).repeatForever(autoreverses:true))
+                
+                
+                
+                Text(" Reset ")
+                    .padding(10.0)
+                    .foregroundColor(Color.white)
+                
+                HStack {
+                    Button {
+                        quiz.reset()
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.yellow)
+                                .aspectRatio(1, contentMode: .fit)
+                                .frame(width: 125, height: 125)
+                                .border(Color("AccentColor"))
+                            Text(" Reset ")
+                                .padding(10.0)
+                                .foregroundColor(Color.white)
+                        }
                     }
                 }
             } //Reset button
