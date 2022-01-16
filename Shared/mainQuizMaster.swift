@@ -68,12 +68,12 @@ class quizStuff: ObservableObject {
         4: "Standing"
     ]
     @Published var boxColors = [
-        1: Color.green,
-        2: Color.cyan,
-        3: Color.orange,
-        4: Color.orange,
-        ]
-    @Published var boxState = 1
+        1: Color("standby"),
+        2: Color("waiting"),
+        3: Color("ready"),
+        4: Color("standing"),
+    ]
+    @Published var boxState = 0
     @Published var quizerPicker = 1
     @Published var activeSide: Bool = false
     
@@ -94,7 +94,7 @@ class quizStuff: ObservableObject {
             case 3:
                 boxState=1
             default:
-                exit(1)
+                boxState = 1
         }
     }
     func text() {}
@@ -105,6 +105,7 @@ class quizStuff: ObservableObject {
     }
     
     @discardableResult func jump() -> String? {
+        self.boxState = 4
         var team = self.right
         var notTeam = self.left
         if activeSide { //right
@@ -165,6 +166,7 @@ class quizStuff: ObservableObject {
         }
         questionNum += 1
         disArm()
+        boxState = 1
         return nil
     }
     init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
@@ -175,11 +177,11 @@ class quizStuff: ObservableObject {
 }
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
-    @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .cyan, rightName: "right", rightColor: .red)
+    @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     
-    @State private var myRed: Double = 0
-    @State private var myGreen: Double = 0
-    @State private var myBlue: Double = 0
+    @State private var myRed: Double = 1
+    @State private var myGreen: Double = 2
+    @State private var myBlue: Double = 3
     
     var body: some View {
         VStack {
@@ -189,9 +191,9 @@ struct mainQuizMaster: View {
                     quiz.disArm()
                 } label: {
                     Text("Previous Question")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color("secText"))
                         .padding()
-                        .background(Color.gray)
+                        .background(Color("Secondary"))
                         .cornerRadius(50.0)
                 }//Previous
                 Spacer()
@@ -200,12 +202,12 @@ struct mainQuizMaster: View {
                     quiz.disArm()
                 } label: {
                     Text("Next Question")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color("secText"))
                         .padding()
-                        .background(Color.gray)
+                        .background(Color("Secondary"))
                         .cornerRadius(50.0)
                 }//Next
-            } //Navigation Bar ////
+            } //Navigation Bar
             HStack {
                 Button {
                     quiz.activeSide = false
@@ -234,164 +236,150 @@ struct mainQuizMaster: View {
                         Text(String(quiz.right.score)).foregroundColor(Color.black)
                     }
                 } // Right jump
-            }//TEMP: Choose Team (test quiz.jump())
-            Picker (selection: $quiz.quizerPicker, label: Text("Seat #").foregroundColor(.orange)) {
-                Text("Quizer #1").tag(1).foregroundColor(.orange)
-                Text("Quizer #2").tag(2).foregroundColor(.orange)
-                Text("Quizer #3").tag(3).foregroundColor(.orange)
-                Text("Quizer #4").tag(4).foregroundColor(.orange)
-                Text("Quizer #5").tag(5).foregroundColor(.orange)
-            }
+            } //TEMP: Choose Team (test quiz.jump())
+            Spacer()
             Group  {
-                Text("Question #"+String(quiz.questionNum)).padding(.bottom)
-                
-                Text("Question from Database")
-                Spacer()
-                Text("A: From Database")
-                Spacer()
-                Spacer()
-            } //Question/Ans (work on db)
-            VStack {
-                Circle()
-                    .fill(quiz.boxColors[ quiz.boxState ] ?? Color.gray)
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 20, height: 20)
-                    .border(Color("AccentColor"))
-                    .padding(.all)
-                    .foregroundColor(Color(red: myRed,green: myGreen,blue: myBlue))
-                    .onAppear{
-                        withAnimation{
-                            myRed = 0.5
-                            myGreen = 0.5
-                            myBlue = 0
+                Picker (selection: $quiz.quizerPicker, label: Text("Seat #")) {
+                    Text("Quizer #1").tag(1).foregroundColor(Color("secText"))
+                    Text("Quizer #2").tag(2).foregroundColor(Color("secText"))
+                    Text("Quizer #3").tag(3).foregroundColor(Color("secText"))
+                    Text("Quizer #4").tag(4).foregroundColor(Color("secText"))
+                    Text("Quizer #5").tag(5).foregroundColor(Color("secText"))
+                }
+            } //Quizzer Picker
+            //            Group  {
+            //                Text("Question #"+String(quiz.questionNum)).padding(.bottom)
+            //
+            //                Text("Question from Database")
+            //                Spacer()
+            //                Text("A: From Database")
+            //                Spacer()
+            //                Spacer()
+            //            } //Question/Ans (work on db)
+            Spacer()
+            HStack() {
+                VStack {
+                    Group  {
+                        Button {
+                            quiz.reset()
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(quiz.boxColors[ quiz.boxState ] ?? Color("Reset"))
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .frame(width: 125, height: 125)
+                                    .border(Color("AccentColor"))
+                                Text(" Reset ")
+                                    .padding(10.0)
+                                    .foregroundColor(Color("priText"))
+                            }
                         }
-                    }
-                    .animation(Animation.easeInOut(duration:0.25).repeatForever(autoreverses:true))
-                
-                
-                
-                Text(" Reset ")
-                    .padding(10.0)
-                    .foregroundColor(Color.white)
-                
-                HStack {
-                    Button {
-                        quiz.reset()
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color.yellow)
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 125, height: 125)
-                                .border(Color("AccentColor"))
-                            Text(" Reset ")
-                                .padding(10.0)
-                                .foregroundColor(Color.white)
+                    } //Reset button
+                    HStack {
+                        Spacer()
+                        Button {
+                            if quiz.left.isSelected || quiz.right.isSelected {
+                                quiz.quesAns(ansType: false)
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Incorrect"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                                Text(" Incorrect ")
+                                    .padding(10.0)
+                                    .foregroundColor(Color("priText"))
+                            }
+                        } // Incorrect
+                        Spacer()
+                        Button {
+                            if quiz.left.isSelected || quiz.right.isSelected {
+                                quiz.quesAns(ansType: true)
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Correct"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                Text(" Correct ")
+                                    .foregroundColor(Color("priText"))
+                                    .padding(10.0)
+                            }
+                        } // Correct
+                        Spacer()
+                        
+                    } //Correct/incorrect bar
+                    HStack {
+                        Button {
+                            appState.UiState = 4
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Secondary"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                
+                                Text(" Text ")
+                                    .padding(10.0)
+                                    .foregroundColor(Color("secText"))
+                                
+                            }
                         }
-                    }
-                }
-            } //Reset button
-            HStack {
-                Spacer()
-                Button {
-                    if quiz.left.isSelected || quiz.right.isSelected {
-                        quiz.quesAns(ansType: false)
-                    }
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.red)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                        Text(" Incorrect ")
-                            .padding(10.0)
-                            .foregroundColor(Color.white)
-                    }
-                } // Incorrect
-                Spacer()
-                Button {
-                    if quiz.left.isSelected || quiz.right.isSelected {
-                        quiz.quesAns(ansType: true)
-                    }
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.green)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                        Text(" Correct ")
-                            .foregroundColor(Color.white)
-                            .padding(10.0)
-                    }
-                } // Correct
-                Spacer()
+                        Spacer()
+                        Button {
+                            quiz.printStats()
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Secondary"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                
+                                Text(" Print Debug ")
+                                    .foregroundColor(Color("secText"))
+                                    .padding(10.0)
+                                
+                            }
+                        }
+                        Spacer()
+                        Button {} label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Secondary"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                Text(" Timer ").foregroundColor(Color("secText"))
+                                    .padding(10.0)
+                            }
+                        }
+                        Spacer()
+                        Button {
+                            appState.UiState = 0
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("Secondary"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .border(Color.accentColor)
+                                Text(" Setup ").foregroundColor(Color("secText"))
+                                    .padding(10.0)
+                            }
+                        }
+                    } //Extra functions bar
+                }.padding(.horizontal, 10.0)
                 
-            } //Correct/incorrect bar
-            HStack {
-                Button {
-                    appState.UiState = 4
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                        
-                        Text(" Text ")
-                            .padding(10.0)
-                            .foregroundColor(Color.white)
-                        
-                    }
-                }
-                Spacer()
-                Button {
-                    quiz.printStats()
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                        
-                        Text(" Print Debug ")
-                            .foregroundColor(Color.white)
-                            .padding(10.0)
-                        
-                    }
-                }
-                Spacer()
-                Button {} label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                        Text(" Timer ").foregroundColor(Color.white)
-                            .padding(10.0)
-                    }
-                }
-                Spacer()
-                Button {
-                    appState.UiState = 0
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray)
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .border(Color("AccentColor"))
-                        Text(" Setup ").foregroundColor(Color.white)
-                            .padding(10.0)
-                    }
-                }
-            } //Extra functions bar
+            }
         }
+        .background(Color.accentColor)
     }
 }
 struct ContentView_Previews: PreviewProvider {

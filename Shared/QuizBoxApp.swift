@@ -36,6 +36,10 @@ struct QuizBoxApp: App {
                 case 4:
                     ActsView()
                         .environmentObject(appState)
+                case 5:
+                    scoreNoQuizBox()
+                        .environmentObject(appState)
+                
                 default:
                     exit(1)
             }
