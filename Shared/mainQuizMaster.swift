@@ -105,7 +105,7 @@ struct mainQuizMaster: View {
             } //Quizzer Picker
             Spacer()
             VStack {
-                if true {
+                if appState.UiTestState==0 {
                     Group  {
                         Button {
                             quiz.reset()
@@ -159,7 +159,6 @@ struct mainQuizMaster: View {
                         }
                     } // Correct
                     Spacer()
-                    
                 } //Correct/incorrect bar
                 HStack {
                     Button {
@@ -176,10 +175,10 @@ struct mainQuizMaster: View {
                                 .foregroundColor(Color("textSec"))
 
                         }
-                    }
+                    } //Text
                     Spacer()
                     Button {
-                        quiz.printStats()
+                        quiz.foul()
                     } label: {
                         ZStack {
                             Circle()
@@ -187,14 +186,16 @@ struct mainQuizMaster: View {
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
                             
-                            Text(" Print Debug ")
+                            Text(" Foul ")
                                 .foregroundColor(Color("textSec"))
                                 .padding(10.0)
                             
                         }
-                    }.hidden()
+                    } //Print Debug
                     Spacer()
-                    Button {} label: {
+                    Button {
+                        
+                    } label: {
                         ZStack {
                             Circle()
                                 .fill(Color("buttonColor"))
@@ -204,20 +205,22 @@ struct mainQuizMaster: View {
                                 .foregroundColor(Color("textSec"))
                                 .padding(10.0)
                         }
-                    }
-                    Spacer()
-                    Button {
-                        appState.UiState = 0
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color("buttonColor"))
-                                .aspectRatio(0.75, contentMode: .fit)
-                                .frame(width: 100, height: 100)
-                            Text(" Exit Demo ")
-                                .foregroundColor(Color("textSec"))
-                                .padding(10.0)
-                        }
+                    } //Timer
+                    if appState.UiTestState==1 {
+                        Spacer()
+                        Button {
+                            appState.UiState = 0
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color("buttonColor"))
+                                    .aspectRatio(0.75, contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                Text(" Exit Demo ")
+                                    .foregroundColor(Color("textSec"))
+                                    .padding(10.0)
+                            }
+                        } //Exit Demo
                     }
                 } //Extra functions bar
             }

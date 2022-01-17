@@ -10,14 +10,18 @@ import SwiftUI
 // Define your observable
 class AppState: ObservableObject {
     @Published var UiState: Int
-    init(hasOnboarded: Int) {
+    @Published var UiTestState: Int
+    
+    init(hasOnboarded: Int, isTesting: Int) {
         self.UiState = hasOnboarded
+        self.UiTestState = isTesting
+        
     }
 }
 
 @main
 struct QuizBoxApp: App {
-    @StateObject var appState = AppState(hasOnboarded: 1)
+    @StateObject var appState = AppState(hasOnboarded: 0, isTesting: 0)
     var body: some Scene {
         WindowGroup {
             switch appState.UiState {

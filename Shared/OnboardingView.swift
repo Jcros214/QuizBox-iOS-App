@@ -4,51 +4,74 @@
 //
 //  Created by Jonathan Crosby on 12/21/21.
 //
-
 import SwiftUI
-
 struct OnboardingView: View {
     @EnvironmentObject var appState: AppState
     var body: some View {
         TabView {
             VStack {
                 Spacer()
+                ZStack{
+                    Rectangle()
+                        .fill(Color("blobColor"))
+                        .cornerRadius(0)
+                        .frame(width: 200, height: 100, alignment: .center)
+                    Text("Welcome!").foregroundColor(Color("textPri"))
+                }
                 Spacer()
-                Spacer()
-                Text("Welcome!")
-                Spacer()
-                Text("To get started, swipe left.")
-                Spacer()
-                Spacer()
+                ZStack{
+                    Rectangle()
+                        .fill(Color("blobColor"))
+                        .cornerRadius(0)
+                        .frame(width: 300, height: 100, alignment: .center)
+                    Text("To get started, swipe left.").foregroundColor(Color("textPri"))
+                }
+                
                 Spacer()
                 
             }
             VStack {
-                Spacer()
-                Spacer()
-                Spacer()
+                Spacer ()
                 Button {
                     appState.UiState = 2 // change
                 } label: {
-                Text("Setup New QuizBox")
-                    
-            }
-                Spacer()
+                    ZStack {
+                        Rectangle()
+                            .fill(Color("buttonColor"))
+                            .cornerRadius(5)
+                        Text("Setup New QuizBox").foregroundColor(Color("textPri"))
+                    }.frame(width: 200, height: 100, alignment: .center)
+                } //Setup New QuizBox
+                Spacer ()
                 Button {
                     appState.UiState = 3 // change
                 } label: {
-                Text("Connect to QuizBox")
-            }
-                Spacer()
-                Spacer()
-                Spacer()
-            }
-            Button("Test UI without QuizBox connected") {
-                appState.UiState = 1 // change
+                    ZStack {
+                        Rectangle()
+                            .fill(Color("buttonColor"))
+                            .cornerRadius(5)
+                        Text("Connect to QuizBox").foregroundColor(Color("textPri"))
+                    }.frame(width: 200, height: 100, alignment: .center)
+                } //Connect to QuizBox
+                Spacer ()
+                Button {
+                    appState.UiState = 1
+                    appState.UiTestState = 1
+                    
+                } label: {
+                    ZStack {
+                        Rectangle()
+                            .fill(Color("buttonColor"))
+                            .cornerRadius(5)
+                        Text("Test UI without QuizBox connected").foregroundColor(Color("textPri"))
+                    }.frame(width: 200, height: 100, alignment: .center)
+                } //UI Test
+                Spacer ()
             }
         }
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .always))
+        .background(Color("background"))
     }
 }
 
