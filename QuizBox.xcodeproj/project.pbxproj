@@ -13,6 +13,10 @@
 		FC11AF2B275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11AF19275BC33500B4C0D2 /* mainQuizMaster.swift */; };
 		FC11AF2C275BC33600B4C0D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */; };
 		FC11AF2D275BC33600B4C0D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */; };
+		FC16C75227946D8A005A68DB /* scoreNoQuizBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */; };
+		FC16C75327946D8A005A68DB /* scoreNoQuizBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */; };
+		FC16C75527946DFC005A68DB /* quizStuff_decleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */; };
+		FC16C75627946DFC005A68DB /* quizStuff_decleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */; };
 		FC32882E27719F8C00DB6034 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC32882D27719F8C00DB6034 /* OnboardingView.swift */; };
 		FC8FCBAD27727131007E3BC9 /* ActsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* ActsView.swift */; };
 		FC8FCBAE27727131007E3BC9 /* ActsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* ActsView.swift */; };
@@ -31,6 +35,8 @@
 		FC11AF1F275BC33600B4C0D2 /* QuizBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11AF25275BC33600B4C0D2 /* QuizBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11AF27275BC33600B4C0D2 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scoreNoQuizBox.swift; sourceTree = "<group>"; };
+		FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizStuff_decleration.swift; sourceTree = "<group>"; };
 		FC32882D27719F8C00DB6034 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC8FCBAC27727131007E3BC9 /* ActsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActsView.swift; sourceTree = "<group>"; };
 		FCD2976C2771AD62007D9758 /* setupBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupBoxView.swift; sourceTree = "<group>"; };
@@ -74,7 +80,9 @@
 				FCD2976F277254FE007D9758 /* connectBoxView.swift */,
 				FC32882D27719F8C00DB6034 /* OnboardingView.swift */,
 				FCD2977227725AD7007D9758 /* AlertView.swift */,
+				FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */,
 				FC8FCBAC27727131007E3BC9 /* ActsView.swift */,
+				FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */,
 				FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -197,9 +205,11 @@
 			files = (
 				FC32882E27719F8C00DB6034 /* OnboardingView.swift in Sources */,
 				FCD29770277254FE007D9758 /* connectBoxView.swift in Sources */,
+				FC16C75227946D8A005A68DB /* scoreNoQuizBox.swift in Sources */,
 				FCD2976D2771AD62007D9758 /* setupBoxView.swift in Sources */,
 				FC11AF2A275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */,
 				FC8FCBAD27727131007E3BC9 /* ActsView.swift in Sources */,
+				FC16C75527946DFC005A68DB /* quizStuff_decleration.swift in Sources */,
 				FC11AF28275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */,
 				FCD2977327725AD7007D9758 /* AlertView.swift in Sources */,
 			);
@@ -209,10 +219,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC16C75627946DFC005A68DB /* quizStuff_decleration.swift in Sources */,
 				FCD2977427725AD7007D9758 /* AlertView.swift in Sources */,
 				FC8FCBAE27727131007E3BC9 /* ActsView.swift in Sources */,
 				FC11AF2B275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */,
 				FCD29771277254FE007D9758 /* connectBoxView.swift in Sources */,
+				FC16C75327946D8A005A68DB /* scoreNoQuizBox.swift in Sources */,
 				FC11AF29275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */,
 				FCD2976E2771AD62007D9758 /* setupBoxView.swift in Sources */,
 			);

@@ -11,23 +11,8 @@
  
  */
 import SwiftUI
-/*
- 
- Results:
- +20
- -10
- 
- Counted Correct: +20
- Find number of correct answers
- if Team has points from 5 sperate quizzers: +20
- if correctly answered now = 5:
- else Notify "[quizzer] has quizzed out!"
- 
- Counted Incorrect:
- if in error zone or team has >3 errors: -10
- if quizzer now has 4 errors: Notify "[quizzer] has quizzed out."
- */
-struct mainQuizMaster: View {
+
+struct scoreNoQuizBox: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     
@@ -43,9 +28,9 @@ struct mainQuizMaster: View {
                     quiz.disArm()
                 } label: {
                     Text("Previous Question")
-                        .foregroundColor(Color("textSec"))
+                        .foregroundColor(Color("secText"))
                         .padding()
-                        .background(Color("buttonColor"))
+                        .background(Color("Secondary"))
                         .cornerRadius(50.0)
                 }//Previous
                 Spacer()
@@ -54,9 +39,9 @@ struct mainQuizMaster: View {
                     quiz.disArm()
                 } label: {
                     Text("Next Question")
-                        .foregroundColor(Color("textSec"))
+                        .foregroundColor(Color("secText"))
                         .padding()
-                        .background(Color("buttonColor"))
+                        .background(Color("Secondary"))
                         .cornerRadius(50.0)
                 }//Next
             } //Navigation Bar
@@ -71,7 +56,7 @@ struct mainQuizMaster: View {
                             .padding()
                             .background(quiz.left.buttonColor)
                             .cornerRadius(50.0)
-                        Text(String(quiz.left.score)).foregroundColor(Color.accentColor)
+                        Text(String(quiz.left.score)).foregroundColor(Color.black)
                     }
                 } // Left jump
                 Spacer()
@@ -85,13 +70,15 @@ struct mainQuizMaster: View {
                             .padding()
                             .background(quiz.right.buttonColor )
                             .cornerRadius(50.0)
-                        Text(String(quiz.right.score)).foregroundColor(Color.accentColor)
+                        Text(String(quiz.right.score)).foregroundColor(Color.black)
                     }
                 } // Right jump
             } //TEMP: Choose Team (test quiz.jump())
-            Text("Question #\(quiz.questionNum)")
             Spacer()
             ZStack {
+                Rectangle()
+                    .fill(Color.black)
+                    .frame(width: 200, height: 100, alignment: .center)
                 Picker("Quizzer Picker", selection: $quiz.quizerPicker) {
                     Text("Quizer #1").tag(1)
                     Text("Quizer #2").tag(2)
@@ -103,26 +90,9 @@ struct mainQuizMaster: View {
                     
                 }
             } //Quizzer Picker
-            Spacer()
+            
             VStack {
-                if true {
-                    Group  {
-                        Button {
-                            quiz.reset()
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(quiz.boxColors[ quiz.boxState ] ?? Color("Reset"))
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .frame(width: 125, height: 125)
-                                    .border(Color("background"))
-                                Text(" Reset ")
-                                    .padding(10.0)
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                    } //Reset button
-                }
+                Spacer()
                 HStack {
                     Spacer()
                     Button {
@@ -135,10 +105,11 @@ struct mainQuizMaster: View {
                                 .fill(Color("Incorrect"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
+                                .border(Color.accentColor)
                                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                             Text(" Incorrect ")
                                 .padding(10.0)
-                                .foregroundColor(Color("textIncor"))
+                                .foregroundColor(Color("priText"))
                         }
                     } // Incorrect
                     Spacer()
@@ -152,9 +123,9 @@ struct mainQuizMaster: View {
                                 .fill(Color("Correct"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
-
+                                .border(Color.accentColor)
                             Text(" Correct ")
-                                .foregroundColor(Color("textCor"))
+                                .foregroundColor(Color("priText"))
                                 .padding(10.0)
                         }
                     } // Correct
@@ -167,14 +138,15 @@ struct mainQuizMaster: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(Color("buttonColor"))
+                                .fill(Color("Secondary"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
+                                .border(Color.accentColor)
                             
                             Text(" Text ")
                                 .padding(10.0)
-                                .foregroundColor(Color("textSec"))
-
+                                .foregroundColor(Color("secText"))
+                            
                         }
                     }
                     Spacer()
@@ -183,25 +155,26 @@ struct mainQuizMaster: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(Color("buttonColor"))
+                                .fill(Color("Secondary"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
+                                .border(Color.accentColor)
                             
                             Text(" Print Debug ")
-                                .foregroundColor(Color("textSec"))
+                                .foregroundColor(Color("secText"))
                                 .padding(10.0)
                             
                         }
-                    }.hidden()
+                    }
                     Spacer()
                     Button {} label: {
                         ZStack {
                             Circle()
-                                .fill(Color("buttonColor"))
+                                .fill(Color("Secondary"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
-                            Text(" Timer ")
-                                .foregroundColor(Color("textSec"))
+                                .border(Color.accentColor)
+                            Text(" Timer ").foregroundColor(Color("secText"))
                                 .padding(10.0)
                         }
                     }
@@ -211,22 +184,22 @@ struct mainQuizMaster: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(Color("buttonColor"))
+                                .fill(Color("Secondary"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
-                            Text(" Exit Demo ")
-                                .foregroundColor(Color("textSec"))
+                                .border(Color.accentColor)
+                            Text(" Setup ").foregroundColor(Color("secText"))
                                 .padding(10.0)
                         }
                     }
                 } //Extra functions bar
             }
-        }.background(Color("background"))
+        }.background(Color("AccentColor"))
     }
 }
-struct ContentView_Previews: PreviewProvider {
+struct scoreNoQuizBox_Previews: PreviewProvider {
     static var previews: some View {
-        mainQuizMaster()
+        scoreNoQuizBox()
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.portrait)
     }
