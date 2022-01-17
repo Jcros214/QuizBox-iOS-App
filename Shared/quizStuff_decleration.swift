@@ -25,10 +25,15 @@
 import SwiftUI
 import Foundation
 class quizzerIndividual {
+    var name = ""
+    var number: Int
     var corr = Array(repeating: 0, count: 26)
     var err = Array(repeating: 0, count: 26)
     var isEnabled = true
-    
+    init (qNumber: Int, side: String) {
+        number = qNumber
+        name = "\(side): Quizzer #\(number)"
+    }
 }
 class side {
     var _name: String
@@ -38,18 +43,19 @@ class side {
     var score = 0
     var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
     var errT = 0
-    var quizzer = [
-        quizzerIndividual(),
-        quizzerIndividual(),
-        quizzerIndividual(),
-        quizzerIndividual(),
-        quizzerIndividual(),
-        quizzerIndividual(),
-        quizzerIndividual()
-    ]
+    var quizzer: [quizzerIndividual]
     init( name: String , color: Color) {
         _name = name
         _color = color
+        quizzer = [
+            quizzerIndividual(qNumber: 1, side: _name),
+            quizzerIndividual(qNumber: 2, side: _name),
+            quizzerIndividual(qNumber: 3, side: _name),
+            quizzerIndividual(qNumber: 4, side: _name),
+            quizzerIndividual(qNumber: 5, side: _name),
+            quizzerIndividual(qNumber: 6, side: _name),
+            quizzerIndividual(qNumber: 7, side: _name)
+        ]
     }
 }
 class quizStuff: ObservableObject {
@@ -73,6 +79,9 @@ class quizStuff: ObservableObject {
     @Published var boxState = 0
     @Published var quizerPicker = 1
     @Published var activeSide: Bool = false
+    @Published var sideActive: side
+    @Published var showQuestions = false
+
     
     func disArm() {
         left.isSelected = false
@@ -103,6 +112,9 @@ class quizStuff: ObservableObject {
     
     @discardableResult func jump() -> String? {
         self.boxState = 4
+        
+        
+        
         var team = self.right
         var notTeam = self.left
         if activeSide { //right
@@ -113,9 +125,11 @@ class quizStuff: ObservableObject {
         
         team.isSelected = true
         team.buttonColor = team._color
+        sideActive = team
         
         notTeam.isSelected = false
         notTeam.buttonColor = .gray
+        
         return nil
     }
     @discardableResult func quesAns(ansType: Bool) -> String? {
@@ -167,8 +181,38 @@ class quizStuff: ObservableObject {
         return nil
     }
     init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
-        left  = side( name: "left" , color: leftColor)
-        right = side( name: "right", color: rightColor)
+        left  = side( name: "Left" , color: leftColor)
+        right = side( name: "Right", color: rightColor)
         empty = side( name: "empty", color: .gray)
+        sideActive = side(name: "empty", color: .gray)
+    }
+    
+}
+
+
+
+struct secButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(5)
+            .background(Color("buttonColor"))
+            .foregroundColor(Color("textSec"))
+            .frame(width: 100, height: 100, alignment: .center)
+            .clipShape(Circle())
+            
+//            .padding()
+//            .background(Color(red: 0, green: 0, blue: 0.5))
+//            .foregroundColor(.white)
+//            .clipShape(Capsule())
+        
+        
+        //            .clipShape(Circle())
+//            .background(Color("buttonColor"))
+//            .frame(width: 100, height: 100)
+//            .aspectRatio(0.75, contentMode: .fit)
+//            .foregroundColor(Color("textSec"))
+//            .padding()
+//            //.scaleEffect(configuration.isPressed ? 1.2 : 1)
+//            //.animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

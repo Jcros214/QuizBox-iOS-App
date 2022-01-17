@@ -29,37 +29,39 @@ import SwiftUI
  */
 struct mainQuizMaster: View {
     @EnvironmentObject var appState: AppState
-    @ObservedObject var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
-    
+    @ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     @State private var myRed: Double = 1
     @State private var myGreen: Double = 2
     @State private var myBlue: Double = 3
     
+    
+    
+    
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    quiz.questionNum -= 1
-                    quiz.disArm()
-                } label: {
-                    Text("Previous Question")
-                        .foregroundColor(Color("textSec"))
-                        .padding()
-                        .background(Color("buttonColor"))
-                        .cornerRadius(50.0)
-                }//Previous
-                Spacer()
-                Button {
-                    quiz.questionNum += 1
-                    quiz.disArm()
-                } label: {
-                    Text("Next Question")
-                        .foregroundColor(Color("textSec"))
-                        .padding()
-                        .background(Color("buttonColor"))
-                        .cornerRadius(50.0)
-                }//Next
-            } //Navigation Bar
+            //            HStack {
+            //                Button {
+            //                    quiz.questionNum -= 1
+            //                    quiz.disArm()
+            //                } label: {
+            //                    Text("Previous Question")
+            //                        .foregroundColor(Color("textSec"))
+            //                        .padding()
+            //                        .background(Color("buttonColor"))
+            //                        .cornerRadius(50.0)
+            //                }//Previous
+            //                Spacer()
+            //                Button {
+            //                    quiz.questionNum += 1
+            //                    quiz.disArm()
+            //                } label: {
+            //                    Text("Next Question")
+            //                        .foregroundColor(Color("textSec"))
+            //                        .padding()
+            //                        .background(Color("buttonColor"))
+            //                        .cornerRadius(50.0)
+            //                }//Next
+            //            } //Navigation Bar
             HStack {
                 Button {
                     quiz.activeSide = false
@@ -89,20 +91,29 @@ struct mainQuizMaster: View {
                     }
                 } // Right jump
             } //TEMP: Choose Team (test quiz.jump())
-            Text("Question #\(quiz.questionNum)")
+            Spacer()
+            
+            Group {
+                Text("Question #\(quiz.questionNum):")
+                Text("According to Acts 26:4, where was Paul's life at the first?")
+                Spacer()
+                Text("Answer: ")
+                Text("among mine own nation at Jerusalem")
+            }
             Spacer()
             ZStack {
+                
                 Picker("Quizzer Picker", selection: $quiz.quizerPicker) {
-                    Text("Quizer #1").tag(1)
-                    Text("Quizer #2").tag(2)
-                    Text("Quizer #3").tag(3)
-                    Text("Quizer #4").tag(4)
-                    Text("Quizer #5").tag(5)
-                    Text("Quizer #6").tag(6)
-                    Text("Quizer #7").tag(7)
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[0].name).tag(0)} else {Text(quiz.left.quizzer[0].name).tag(0)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[1].name).tag(1)} else {Text(quiz.left.quizzer[1].name).tag(1)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[2].name).tag(2)} else {Text(quiz.left.quizzer[2].name).tag(2)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[3].name).tag(3)} else {Text(quiz.left.quizzer[3].name).tag(3)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[4].name).tag(4)} else {Text(quiz.left.quizzer[4].name).tag(4)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[5].name).tag(5)} else {Text(quiz.left.quizzer[5].name).tag(5)}
+                    if (quiz.activeSide) {Text(quiz.right.quizzer[6].name).tag(6)} else {Text(quiz.left.quizzer[6].name).tag(6)}
                     
-                }
-            } //Quizzer Picker
+                }.foregroundColor(Color.white)
+            }//Quizzer Picker
             Spacer()
             VStack {
                 if appState.UiTestState==0 {
@@ -152,7 +163,7 @@ struct mainQuizMaster: View {
                                 .fill(Color("Correct"))
                                 .aspectRatio(0.75, contentMode: .fit)
                                 .frame(width: 100, height: 100)
-
+                            
                             Text(" Correct ")
                                 .foregroundColor(Color("textCor"))
                                 .padding(10.0)
@@ -161,68 +172,14 @@ struct mainQuizMaster: View {
                     Spacer()
                 } //Correct/incorrect bar
                 HStack {
-                    Button {
-                        appState.UiState = 4
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color("buttonColor"))
-                                .aspectRatio(0.75, contentMode: .fit)
-                                .frame(width: 100, height: 100)
-                            
-                            Text(" Text ")
-                                .padding(10.0)
-                                .foregroundColor(Color("textSec"))
-
-                        }
-                    } //Text
-                    Spacer()
-                    Button {
-                        quiz.foul()
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color("buttonColor"))
-                                .aspectRatio(0.75, contentMode: .fit)
-                                .frame(width: 100, height: 100)
-                            
-                            Text(" Foul ")
-                                .foregroundColor(Color("textSec"))
-                                .padding(10.0)
-                            
-                        }
-                    } //Print Debug
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color("buttonColor"))
-                                .aspectRatio(0.75, contentMode: .fit)
-                                .frame(width: 100, height: 100)
-                            Text(" Timer ")
-                                .foregroundColor(Color("textSec"))
-                                .padding(10.0)
-                        }
-                    } //Timer
+                    Button("Text") {appState.UiState = 4}.buttonStyle(secButton())
+                    Button("Foul") {quiz.foul()}.buttonStyle(secButton())
+                    Button("Timer"){}.buttonStyle(secButton())
                     if appState.UiTestState==1 {
-                        Spacer()
-                        Button {
-                            appState.UiState = 0
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(Color("buttonColor"))
-                                    .aspectRatio(0.75, contentMode: .fit)
-                                    .frame(width: 100, height: 100)
-                                Text(" Exit Demo ")
-                                    .foregroundColor(Color("textSec"))
-                                    .padding(10.0)
-                            }
-                        } //Exit Demo
-                    }
-                } //Extra functions bar
+                        Button ("Exit Demo") {appState.UiState = 0}.buttonStyle(secButton())
+                    } //Exit Demo
+                }
+                //Extra functions bar
             }
         }.background(Color("background"))
     }
