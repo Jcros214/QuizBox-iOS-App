@@ -38,7 +38,7 @@ let iCor1 =  [
     "That no flesh should glory in his presence.",
     "But of him are ye in Christ Jesus, who of God is made unto us wisdom, and righteousness, and sanctification, and redemption:",
     "That, according as it is written, He that glorieth, let him glory in the Lord."
-]
+] as [String]
 let iCor2 =  [
     "And I‭, brethren‭, when I came‭‭ to‭ you‭, came‭‭ not‭ with‭ excellency‭ of speech‭ or‭ of wisdom‭, declaring‭‭ unto you‭ the testimony‭ of God‭.",
     "‭For‭ I determined‭‭ not‭ to know‭‭ any thing‭ among‭ you‭, save‭ Jesus‭ Christ‭, and‭ him‭ crucified‭‭.",
@@ -56,7 +56,7 @@ let iCor2 =  [
     "‭But‭ the natural‭ man‭ receiveth‭‭ not‭ the things‭ of the Spirit‭ of God‭: for‭ they are‭‭ foolishness‭ unto him‭: neither‭‭ can‭‭ he know‭‭ them, because‭ they are spiritually‭ discerned‭‭.",
     "‭But‭ he that is spiritual‭ judgeth‭‭‭ all things‭, yet‭ he himself‭ is judged‭‭ of‭ no man‭.",
     "‭For‭ who‭ hath known‭‭ the mind‭ of the Lord‭, that‭ he may instruct‭‭ him‭? But‭ we‭ have‭‭ the mind‭ of Christ‭."
-]
+] as [String]
 let iCor3 =  [
     "And‭ I‭, brethren‭, could‭‭ not‭ speak‭‭ unto you‭ as‭ unto spiritual‭, but‭ as‭ unto carnal‭, [even] as‭ unto babes‭ in‭ Christ‭.",
     "‭I have fed‭‭ you‭ with milk‭, and‭ not‭ with meat‭: for‭ hitherto‭‭ ye were‭‭ not‭ able‭‭ [to bear it], neither‭‭ yet‭ now‭ are ye able‭‭.",
@@ -81,7 +81,7 @@ let iCor3 =  [
     "‭Therefore‭ let‭‭ no man‭ glory‭‭ in‭ men‭. For‭ all things‭ are‭‭ yours‭;",
     "‭Whether‭ Paul‭, or‭ Apollos‭, or‭ Cephas‭, or‭ the world‭, or‭ life‭, or‭ death‭, or‭ things present‭‭, or‭ things to come‭‭; all‭ are‭‭ yours‭;",
     "‭And‭ ye‭ are Christ’s‭; and‭ Christ‭ [is] God’s‭."
-]
+] as [String]
 let iCor4 =  [
     "Let‭‭ a man‭ so‭ account‭‭ of us‭, as‭ of the ministers‭ of Christ‭, and‭ stewards‭ of the mysteries‭ of God‭.",
     "‭‭ Moreover‭ it is required‭‭ in‭ stewards‭, that‭ a man‭ be found‭‭ faithful‭.",
@@ -104,7 +104,7 @@ let iCor4 =  [
     "‭But‭ I will come‭‭ to‭ you‭ shortly‭, if‭ the Lord‭ will‭‭, and‭ will know‭‭, not‭ the speech‭ of them which are puffed up‭‭, but‭ the power‭.",
     "‭For‭ the kingdom‭ of God‭ [is] not‭ in‭ word‭, but‭ in‭ power‭.",
     "‭What‭ will ye‭‭? shall I come‭‭ unto‭ you‭ with‭ a rod‭, or‭ in‭ love‭, and‭ [in] the spirit‭ of meekness‭?"
-]
+] as [String]
 let iCor5 =  [] as [String]
 let iCor6 =  [] as [String]
 let iCor7 =  [] as [String]
@@ -118,79 +118,45 @@ let iCor14 = [] as [String]
 let iCor15 = [] as [String]
 let iCor16 = [] as [String]
 
-
+let iCor1Q  = ["1","5","10","15","20","25","30","31","55"] as [String]
+let iCor2Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor3Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor4Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor5Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor6Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor7Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor8Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor9Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor10Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor11Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor12Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor13Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor14Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor15Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor16Q = ["1","2","3","5","8","13","21","34","55"] as [String]
 
 
 let ICor = [
-    iCor1,
-    iCor2,
-    iCor3,
-    iCor4,
-    iCor5,
-    iCor6,
-    iCor7,
-    iCor8,
-    iCor9,
-    iCor10,
-    iCor11,
-    iCor12,
-    iCor13,
-    iCor14,
-    iCor15,
-    iCor16
-]
+    [iCor1, iCor1Q ],
+    [iCor2, iCor2Q ],
+    [iCor3, iCor3Q ],
+    [iCor4, iCor4Q ],
+    [iCor5, iCor5Q ],
+    [iCor6, iCor6Q ],
+    [iCor7, iCor7Q ],
+    [iCor8, iCor8Q ],
+    [iCor9, iCor9Q ],
+    [iCor10,iCor10Q],
+    [iCor11,iCor11Q],
+    [iCor12,iCor12Q],
+    [iCor13,iCor13Q],
+    [iCor14,iCor14Q],
+    [iCor15,iCor15Q],
+    [iCor16,iCor16Q]
+] as [Array<Array<String>>]
 
 import SwiftUI
 
-
-//struct chapter {
-//    @Binding var number: Int
-//
-//    var verses: String
-//    var quotes: Array<Int>
-//    init(_number: Int, _verses: Int, _quotes: Array<Int>) {
-//        verses = acts1
-//        quotes = _quotes
-//        number = _number
-//    }
-//}
-//
-//class ACTS: ObservableObject {
-//    @Published var Chapter: chapter
-//    var chapters = [
-//        chapter(_number: 1,_verses: 26, _quotes: [6,8,21,36,41,42,43,47,47]),
-//        chapter(_number: 2,_verses: 47, _quotes: []),
-//        chapter(_number: 3,_verses: 26, _quotes: []),
-//        chapter(_number: 4,_verses: 37, _quotes: []),
-//        chapter(_number: 5,_verses: 42, _quotes: []),
-//        chapter(_number: 6,_verses: 15, _quotes: []),
-//        chapter(_number: 7,_verses: 60, _quotes: []),
-//        chapter(_number: 8,_verses: 40, _quotes: []),
-//        chapter(_number: 9,_verses: 43, _quotes: []),
-//        chapter(_number: 10,_verses: 48, _quotes: []),
-//        chapter(_number: 11,_verses: 30, _quotes: []),
-//        chapter(_number: 12,_verses: 25, _quotes: []),
-//        chapter(_number: 13,_verses: 52, _quotes: []),
-//        chapter(_number: 14,_verses: 28, _quotes: []),
-//        chapter(_number: 15,_verses: 41, _quotes: []),
-//        chapter(_number: 16,_verses: 40, _quotes: []),
-//        chapter(_number: 17,_verses: 34, _quotes: []),
-//        chapter(_number: 18,_verses: 28, _quotes: []),
-//        chapter(_number: 19,_verses: 41, _quotes: []),
-//        chapter(_number: 20,_verses: 38, _quotes: []),
-//        chapter(_number: 21,_verses: 40, _quotes: []),
-//        chapter(_number: 22,_verses: 30, _quotes: []),
-//        chapter(_number: 23,_verses: 35, _quotes: []),
-//        chapter(_number: 24,_verses: 27, _quotes: []),
-//        chapter(_number: 25,_verses: 27, _quotes: []),
-//        chapter(_number: 26,_verses: 32, _quotes: []),
-//        chapter(_number: 27,_verses: 44, _quotes: []),
-//        chapter(_number: 28,_verses: 31, _quotes: [])
-//    ]
-//    init() {
-//        Chapter = self.chapters[0]
-//    }
-//}
 
 struct TextView: View {
     @EnvironmentObject var appState: AppState
@@ -230,15 +196,24 @@ struct TextView: View {
                     }.foregroundColor(Color.red)
                 }
                 VStack(alignment: .leading){
-                    ForEach(Range(0...(ICor[selection].count-1)), id: \.self) { i in
+                    ForEach(Range(0...((ICor[selection][0]).count-1)), id: \.self) { i in
                         HStack {
                             VStack {
-                                Text("\(i+1) ")
+                                if (ICor[selection][1].contains(String(i+1))) {
+                                    Text("\(i+1) ")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.orange)
+                                        
+                                }
+                                else {
+                                    Text("\(i+1) ")
+                                }
+                                
                                 Spacer()
                             }
-                            Text("\(ICor[selection][i])")
+                            Text(ICor[0][0][i])
                         }
-                        .padding(.bottom, 4.0)
+                        .padding(.bottom, 2.0)
                     }
                 }
             }
