@@ -78,6 +78,7 @@ class quizStuff: ObservableObject {
     ]
     @Published var boxState = 0
     @Published var quizerPicker = 1
+    @Published var teamPicker = 0
     @Published var activeSide: Bool = false
     @Published var sideActive: side
     @Published var showQuestions = false
@@ -188,16 +189,12 @@ class quizStuff: ObservableObject {
     }
     
 }
-
-
-
 struct secButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(5)
+            .padding()
             .background(Color("buttonColor"))
             .foregroundColor(Color("textSec"))
-            .frame(width: 100, height: 100, alignment: .center)
             .clipShape(Circle())
             
 //            .padding()

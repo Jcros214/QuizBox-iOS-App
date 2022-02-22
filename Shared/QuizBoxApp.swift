@@ -21,7 +21,7 @@ class AppState: ObservableObject {
 
 @main
 struct QuizBoxApp: App {
-    @StateObject var appState = AppState(hasOnboarded: 1, isTesting: 1)
+    @StateObject var appState = AppState(hasOnboarded: 4, isTesting: 1)
     @ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     var body: some Scene {
         WindowGroup {
@@ -42,11 +42,11 @@ struct QuizBoxApp: App {
                     connectBoxView()
                         .environmentObject(appState)
                 case 4:
-                    ActsView()
+                    TextView()
                         .environmentObject(appState)
-                case 5:
-                    scoreNoQuizBox()
-                        .environmentObject(appState)
+                        .environmentObject(quiz)
+
+                
                 case 6:
                     teamSetup()
                         .environmentObject(appState)

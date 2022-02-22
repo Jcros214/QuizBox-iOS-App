@@ -33,10 +33,6 @@ struct mainQuizMaster: View {
     @State private var myRed: Double = 1
     @State private var myGreen: Double = 2
     @State private var myBlue: Double = 3
-    
-    
-    
-    
     var body: some View {
         VStack {
             //            HStack {
@@ -95,11 +91,11 @@ struct mainQuizMaster: View {
             
             Group {
                 Text("Question #\(quiz.questionNum):")
-                Text("According to Acts 26:4, where was Paul's life at the first?")
-                Spacer()
+                Text("Test Field; question integration in process")
+                
                 Text("Answer: ")
-                Text("among mine own nation at Jerusalem")
-            }
+                Text("Test Field; question integration in prosses")
+            } //Q/A
             Spacer()
             ZStack {
                 
@@ -132,7 +128,7 @@ struct mainQuizMaster: View {
                                     .foregroundColor(Color.black)
                             }
                         }
-                    } //Reset button
+                    } //Reset button 
                 }
                 HStack {
                     Spacer()
@@ -172,11 +168,16 @@ struct mainQuizMaster: View {
                     Spacer()
                 } //Correct/incorrect bar
                 HStack {
-                    Button("Text") {appState.UiState = 4}.buttonStyle(secButton())
-                    Button("Foul") {quiz.foul()}.buttonStyle(secButton())
-                    Button("Timer"){}.buttonStyle(secButton())
+                    Spacer()
+                    Button("Text") {appState.UiState = 4}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
+                    Spacer()
+                    Button("Foul") {quiz.foul()}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
+                    Spacer()
+                    Button("Timer"){}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
+                    Spacer()
                     if appState.UiTestState==1 {
-                        Button ("Exit Demo") {appState.UiState = 0}.buttonStyle(secButton())
+                        Button ("Exit Demo") {appState.UiState = 0}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
+                        Spacer()
                     } //Exit Demo
                 }
                 //Extra functions bar

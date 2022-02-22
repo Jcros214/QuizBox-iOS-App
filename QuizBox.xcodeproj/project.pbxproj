@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC0E1EE027C155B300A2EC79 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FC0E1EDF27C155B300A2EC79 /* GoogleSignIn */; };
 		FC11AF28275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11AF18275BC33500B4C0D2 /* QuizBoxApp.swift */; };
 		FC11AF29275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11AF18275BC33500B4C0D2 /* QuizBoxApp.swift */; };
 		FC11AF2A275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11AF19275BC33500B4C0D2 /* mainQuizMaster.swift */; };
 		FC11AF2B275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11AF19275BC33500B4C0D2 /* mainQuizMaster.swift */; };
 		FC11AF2C275BC33600B4C0D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */; };
 		FC11AF2D275BC33600B4C0D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */; };
-		FC16C75227946D8A005A68DB /* scoreNoQuizBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */; };
-		FC16C75327946D8A005A68DB /* scoreNoQuizBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */; };
+		FC1398F127B8169100CB0489 /* TeamData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1398F027B8169100CB0489 /* TeamData.swift */; };
+		FC1398F227B8169100CB0489 /* TeamData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1398F027B8169100CB0489 /* TeamData.swift */; };
 		FC16C75527946DFC005A68DB /* quizStuff_decleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */; };
 		FC16C75627946DFC005A68DB /* quizStuff_decleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */; };
 		FC32882E27719F8C00DB6034 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC32882D27719F8C00DB6034 /* OnboardingView.swift */; };
-		FC8FCBAD27727131007E3BC9 /* ActsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* ActsView.swift */; };
-		FC8FCBAE27727131007E3BC9 /* ActsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* ActsView.swift */; };
+		FC8FCBAD27727131007E3BC9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* TextView.swift */; };
+		FC8FCBAE27727131007E3BC9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8FCBAC27727131007E3BC9 /* TextView.swift */; };
 		FCAC22702795F0CE002C8487 /* teamSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAC226F2795F0CE002C8487 /* teamSetup.swift */; };
 		FCAC22712795F0CE002C8487 /* teamSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAC226F2795F0CE002C8487 /* teamSetup.swift */; };
 		FCD2976D2771AD62007D9758 /* setupBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD2976C2771AD62007D9758 /* setupBoxView.swift */; };
@@ -31,16 +32,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FC0E1EE127C1632E00A2EC79 /* QuizBox--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "QuizBox--iOS--Info.plist"; sourceTree = "<group>"; };
 		FC11AF18275BC33500B4C0D2 /* QuizBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizBoxApp.swift; sourceTree = "<group>"; };
 		FC11AF19275BC33500B4C0D2 /* mainQuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainQuizMaster.swift; sourceTree = "<group>"; };
 		FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC11AF1F275BC33600B4C0D2 /* QuizBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11AF25275BC33600B4C0D2 /* QuizBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11AF27275BC33600B4C0D2 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scoreNoQuizBox.swift; sourceTree = "<group>"; };
+		FC1398F027B8169100CB0489 /* TeamData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamData.swift; sourceTree = "<group>"; };
 		FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizStuff_decleration.swift; sourceTree = "<group>"; };
 		FC32882D27719F8C00DB6034 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		FC8FCBAC27727131007E3BC9 /* ActsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActsView.swift; sourceTree = "<group>"; };
+		FC8FCBAC27727131007E3BC9 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		FCAC226F2795F0CE002C8487 /* teamSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = teamSetup.swift; sourceTree = "<group>"; };
 		FCD2976C2771AD62007D9758 /* setupBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupBoxView.swift; sourceTree = "<group>"; };
 		FCD2976F277254FE007D9758 /* connectBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = connectBoxView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC0E1EE027C155B300A2EC79 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +71,7 @@
 		FC11AF12275BC33500B4C0D2 = {
 			isa = PBXGroup;
 			children = (
+				FC0E1EE127C1632E00A2EC79 /* QuizBox--iOS--Info.plist */,
 				FC11AF17275BC33500B4C0D2 /* Shared */,
 				FC11AF26275BC33600B4C0D2 /* macOS */,
 				FC11AF20275BC33600B4C0D2 /* Products */,
@@ -80,13 +84,13 @@
 				FC11AF18275BC33500B4C0D2 /* QuizBoxApp.swift */,
 				FC11AF19275BC33500B4C0D2 /* mainQuizMaster.swift */,
 				FCAC226F2795F0CE002C8487 /* teamSetup.swift */,
+				FC1398F027B8169100CB0489 /* TeamData.swift */,
 				FCD2976C2771AD62007D9758 /* setupBoxView.swift */,
 				FCD2976F277254FE007D9758 /* connectBoxView.swift */,
 				FC32882D27719F8C00DB6034 /* OnboardingView.swift */,
 				FCD2977227725AD7007D9758 /* AlertView.swift */,
 				FC16C75427946DFC005A68DB /* quizStuff_decleration.swift */,
-				FC8FCBAC27727131007E3BC9 /* ActsView.swift */,
-				FC16C75127946D8A005A68DB /* scoreNoQuizBox.swift */,
+				FC8FCBAC27727131007E3BC9 /* TextView.swift */,
 				FC11AF1A275BC33600B4C0D2 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -125,6 +129,9 @@
 			dependencies = (
 			);
 			name = "QuizBox (iOS)";
+			packageProductDependencies = (
+				FC0E1EDF27C155B300A2EC79 /* GoogleSignIn */,
+			);
 			productName = "QuizBox (iOS)";
 			productReference = FC11AF1F275BC33600B4C0D2 /* QuizBox.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +180,9 @@
 				Base,
 			);
 			mainGroup = FC11AF12275BC33500B4C0D2;
+			packageReferences = (
+				FC0E1EDE27C155B300A2EC79 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = FC11AF20275BC33600B4C0D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,13 +219,13 @@
 			files = (
 				FC32882E27719F8C00DB6034 /* OnboardingView.swift in Sources */,
 				FCD29770277254FE007D9758 /* connectBoxView.swift in Sources */,
-				FC16C75227946D8A005A68DB /* scoreNoQuizBox.swift in Sources */,
 				FCD2976D2771AD62007D9758 /* setupBoxView.swift in Sources */,
 				FC11AF2A275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */,
-				FC8FCBAD27727131007E3BC9 /* ActsView.swift in Sources */,
+				FC8FCBAD27727131007E3BC9 /* TextView.swift in Sources */,
 				FCAC22702795F0CE002C8487 /* teamSetup.swift in Sources */,
 				FC16C75527946DFC005A68DB /* quizStuff_decleration.swift in Sources */,
 				FC11AF28275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */,
+				FC1398F127B8169100CB0489 /* TeamData.swift in Sources */,
 				FCD2977327725AD7007D9758 /* AlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,11 +236,11 @@
 			files = (
 				FC16C75627946DFC005A68DB /* quizStuff_decleration.swift in Sources */,
 				FCD2977427725AD7007D9758 /* AlertView.swift in Sources */,
-				FC8FCBAE27727131007E3BC9 /* ActsView.swift in Sources */,
+				FC8FCBAE27727131007E3BC9 /* TextView.swift in Sources */,
 				FC11AF2B275BC33600B4C0D2 /* mainQuizMaster.swift in Sources */,
+				FC1398F227B8169100CB0489 /* TeamData.swift in Sources */,
 				FCAC22712795F0CE002C8487 /* teamSetup.swift in Sources */,
 				FCD29771277254FE007D9758 /* connectBoxView.swift in Sources */,
-				FC16C75327946D8A005A68DB /* scoreNoQuizBox.swift in Sources */,
 				FC11AF29275BC33600B4C0D2 /* QuizBoxApp.swift in Sources */,
 				FCD2976E2771AD62007D9758 /* setupBoxView.swift in Sources */,
 			);
@@ -356,10 +366,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 79Y8HB3257;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "QuizBox--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -387,10 +398,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 79Y8HB3257;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "QuizBox--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -500,6 +512,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC0E1EDE27C155B300A2EC79 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC0E1EDF27C155B300A2EC79 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC0E1EDE27C155B300A2EC79 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FC11AF13275BC33500B4C0D2 /* Project object */;
 }

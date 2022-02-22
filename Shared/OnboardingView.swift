@@ -5,6 +5,27 @@
 //  Created by Jonathan Crosby on 12/21/21.
 //
 import SwiftUI
+
+//let signInConfig = GIDConfiguration.init(clientID: "128965486805-7tinikf48tl1tnjuur4lqjt3qbh495po.apps.googleusercontent.com")
+//
+//func application(
+//  _ app: UIApplication,
+//  open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+//) -> Bool {
+//  var handled: Bool
+//
+//  handled = GIDSignIn.sharedInstance.handle(url)
+//  if handled {
+//    return true
+//  }
+//
+//  // Handle other custom URL types.
+//
+//  // If not handled by this app, return false.
+//  return false
+//}
+
+
 struct OnboardingView: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
@@ -81,6 +102,17 @@ struct OnboardingView: View {
                 } //Team Setup
                 Spacer ()
             }
+//            VStack {
+//                GIDSignIn.sharedInstance.signIn(
+//                   with: signInConfig,
+//                   presenting: self
+//               ) { user, error in
+//                   guard error == nil else { return }
+//                   guard let user = user else { return }
+//
+//                   // Your user is signed in!
+//               } 
+//            }
         }
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .always))
