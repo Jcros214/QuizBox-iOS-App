@@ -37,36 +37,59 @@ import SwiftUI
 
 struct teamSetup: View {
     @EnvironmentObject var appState: AppState
-    //@ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     var body: some View {
-        //        VStack() {
-        //            Spacer()
-        //            HStack{
-        //                ForEach(teamDict.count) {
-        //                    HStack {
-        //                        Spacer()
-        //                        Text("Left Team #\($0)")
-        //                        Spacer()
-        //                        Text("Right Team #\($0)")
-        //                        Spacer()
-        //                    }
-        //                }
-        //            }
-        //            Spacer()
-        Button {
-            appState.UiState = 1
-            appState.UiTestState = 0
-            
-        } label: {
-            ZStack {
-                Rectangle()
-                    .fill(Color("buttonColor"))
-                    .cornerRadius(5)
-                Text("Continue").foregroundColor(Color("textPri"))
-            }.frame(width: 200, height: 100, alignment: .center)
-            //            } //Team Setup
-            //            Spacer()
-            //        }.background(Color("background"))
+        VStack() {
+            Spacer ()
+            VStack {
+                HStack {
+                    Spacer()
+                    Picker(selection: $appState.leftSelection, label: Text("Choose team")) {
+                        ForEach(0...(teamArray.count - 1), id: \.self) { i in
+                            Text(teamArray[i].name)
+                        }
+                    }
+                    Spacer()
+                    Picker(selection: $appState.rightSelection, label: Text("Choose team")) {
+                        ForEach(0...(teamArray.count - 1), id: \.self) { i in
+                            Text(teamArray[i].name)
+                        }
+                    }
+                    Spacer()
+                }
+                ForEach(Range(0...5), id: \.self) { i in
+                    HStack {
+                        Spacer()
+                        if (teamArray[appState.leftSelection].name != "Custom") {
+                            Text(teamArray[appState.leftSelection].quizzers[i].name)
+                        } else {
+                            Text("Choose another team")
+                        }
+                        Spacer()
+                        if (teamArray[appState.rightSelection].name != "Custom") {
+                            Text(teamArray[appState.rightSelection].quizzers[i].name)
+                        } else {
+                            Text("Choose another team")
+                        }
+                        Spacer()
+                    }
+                }
+                Spacer ()
+                Button {
+                    appState.UiState = 1
+                    appState.UiTestState = 0
+                    
+                    rightSel = appState.rightSelection
+                    leftSel = appState.leftSelection
+                    
+                } label: {
+                    ZStack {
+                        Rectangle()
+                            .fill(Color("buttonColor"))
+                            .cornerRadius(5)
+                        Text("Continue").foregroundColor(Color("textPri"))
+                    }.frame(width: 200, height: 100, alignment: .center)
+                }
+            }
         }
     }
 }
@@ -75,8 +98,3 @@ struct teamSetup_Previews: PreviewProvider {
         teamSetup()
     }
 }
-
-//            ForEach($quiz.left.quizzer[], id: \.self) {
-//                TextField("Left: Quizzer #\(quiz.left.quizzer[].number)", text: $quiz.left.quizzer[$0-1].name)
-//                TextField("Right: Quizzer #\($0)", text: $quiz.right.quizzer[$0-1].name)
-//            }

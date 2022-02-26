@@ -7,13 +7,16 @@
 
 import Foundation
 
+public var rightSel = 0
+public var leftSel = 0
+
 class member {
     var name: String
     init(Name: String) {
         name = Name
     }
 }
-class team {
+public class team {
     var name: String
     var quizzers: Array<member>
     init (Name: String, q1: String = "", q2: String = "", q3: String = "", q4: String = "", q5: String = "", q6: String = "", q7: String = "") {
@@ -29,9 +32,12 @@ class team {
         ]
     }
 }
-var teamDict = [
-    "Steadfast":    ["Lydia Crosby", "Samuel Unger", "Abby Unger", "Grace Carnell", "Moriah Pipkin"],
-    "United":       ["Bethany Carnell", "Jonathan Crosby", "James Crosby", "Megan Carnell", "Lily Pipkin"],
-    "Accepted":     ["Joey Crosby", "Destiny Wells", "Miriam Carnell", "Micaiah Pipkin"]
-]
 
+public var teamArray = [
+    team(Name: "Steadfast", q1: "Lydia Crosby", q2: "Samuel Unger", q3: "Abby Unger", q4: "Grace Carnell", q5: "Moriah Pipkin"),
+    team(Name: "United", q1: "Bethany Carnell", q2: "Jonathan Crosby", q3: "James Crosby", q4: "Megan Carnell", q5: "Lily Pipkin"),
+    team(Name: "Accepted", q1: "Joey Crosby", q2: "Destiny Wells", q3: "Miriam Carnell", q4: "Micaiah Pipkin", q5: "Bellhannah Cutler"),
+    
+    team(Name: "Custom")
+    
+]

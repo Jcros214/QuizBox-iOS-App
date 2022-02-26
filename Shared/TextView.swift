@@ -105,35 +105,35 @@ let iCor4 =  [
     "‭For‭ the kingdom‭ of God‭ [is] not‭ in‭ word‭, but‭ in‭ power‭.",
     "‭What‭ will ye‭‭? shall I come‭‭ unto‭ you‭ with‭ a rod‭, or‭ in‭ love‭, and‭ [in] the spirit‭ of meekness‭?"
 ] as [String]
-let iCor5 =  [] as [String]
-let iCor6 =  [] as [String]
-let iCor7 =  [] as [String]
-let iCor8 =  [] as [String]
-let iCor9 =  [] as [String]
-let iCor10 = [] as [String]
-let iCor11 = [] as [String]
-let iCor12 = [] as [String]
-let iCor13 = [] as [String]
-let iCor14 = [] as [String]
-let iCor15 = [] as [String]
-let iCor16 = [] as [String]
+let iCor5 =  ["Text not imported yet; coming soon"] as [String]
+let iCor6 =  ["Text not imported yet; coming soon"] as [String]
+let iCor7 =  ["Text not imported yet; coming soon"] as [String]
+let iCor8 =  ["Text not imported yet; coming soon"] as [String]
+let iCor9 =  ["Text not imported yet; coming soon"] as [String]
+let iCor10 = ["Text not imported yet; coming soon"] as [String]
+let iCor11 = ["Text not imported yet; coming soon"] as [String]
+let iCor12 = ["Text not imported yet; coming soon"] as [String]
+let iCor13 = ["Text not imported yet; coming soon"] as [String]
+let iCor14 = ["Text not imported yet; coming soon"] as [String]
+let iCor15 = ["Text not imported yet; coming soon"] as [String]
+let iCor16 = ["Text not imported yet; coming soon"] as [String]
 
-let iCor1Q  = ["1","5","10","15","20","25","30","31","55"] as [String]
-let iCor2Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor3Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor4Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor5Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor6Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor7Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor8Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor9Q  = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor10Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor11Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor12Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor13Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor14Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor15Q = ["1","2","3","5","8","13","21","34","55"] as [String]
-let iCor16Q = ["1","2","3","5","8","13","21","34","55"] as [String]
+let iCor1Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor2Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor3Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor4Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor5Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor6Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor7Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor8Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor9Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor10Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor11Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor12Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor13Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor14Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor15Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCor16Q = ["1","3","5","9","11","13","15","17","19"] as [String]
 
 
 let ICor = [
@@ -200,20 +200,27 @@ struct TextView: View {
                         HStack {
                             VStack {
                                 if (ICor[selection][1].contains(String(i+1))) {
-                                    Text("\(i+1) ")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(Color.orange)
-                                        
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color("AccentColor"))
+                                            .frame(width: 30, height: 30, alignment: .center)
+                                        Text("\(i+1) ")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(Color("buttonColor"))
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    
                                 }
                                 else {
                                     Text("\(i+1) ")
+                                        .foregroundColor(Color("buttonColor"))
+                                        .frame(width: 30, height: 30, alignment: .center)
+
                                 }
-                                
                                 Spacer()
                             }
-                            Text(ICor[0][0][i])
-                        }
-                        .padding(.bottom, 2.0)
+                            Text(ICor[selection][0][i])
+                        }.padding(.bottom, 2.0)
                     }
                 }
             }
@@ -230,9 +237,9 @@ struct ActsView_Previews: PreviewProvider {
 /**
  
  ForEach() {
-        HStack() {
-                        
-        }
+ HStack() {
+ 
+ }
  
  }
  

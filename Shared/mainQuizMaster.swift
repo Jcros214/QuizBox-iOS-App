@@ -88,7 +88,6 @@ struct mainQuizMaster: View {
                 } // Right jump
             } //TEMP: Choose Team (test quiz.jump())
             Spacer()
-            
             Group {
                 Text("Question #\(quiz.questionNum):")
                 Text("Test Field; question integration in process")
@@ -108,7 +107,7 @@ struct mainQuizMaster: View {
                     if (quiz.activeSide) {Text(quiz.right.quizzer[5].name).tag(5)} else {Text(quiz.left.quizzer[5].name).tag(5)}
                     if (quiz.activeSide) {Text(quiz.right.quizzer[6].name).tag(6)} else {Text(quiz.left.quizzer[6].name).tag(6)}
                     
-                }.foregroundColor(Color.white)
+                }.foregroundColor(Color.orange)
             }//Quizzer Picker
             Spacer()
             VStack {

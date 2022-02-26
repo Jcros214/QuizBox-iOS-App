@@ -24,15 +24,16 @@
 
 import SwiftUI
 import Foundation
+
 class quizzerIndividual {
     var name = ""
     var number: Int
     var corr = Array(repeating: 0, count: 26)
     var err = Array(repeating: 0, count: 26)
     var isEnabled = true
-    init (qNumber: Int, side: String) {
+    init (qNumber: Int, side: String, qName: String) {
         number = qNumber
-        name = "\(side): Quizzer #\(number)"
+        self.name = qName
     }
 }
 class side {
@@ -44,21 +45,24 @@ class side {
     var corrT = 0 //Number of individuals that answered (NOT number of correct answers)
     var errT = 0
     var quizzer: [quizzerIndividual]
-    init( name: String , color: Color) {
+    init( name: String , color: Color, q1: String = "", q2: String = "", q3: String = "", q4: String = "", q5: String = "", q6: String = "", q7: String = "") {
         _name = name
         _color = color
         quizzer = [
-            quizzerIndividual(qNumber: 1, side: _name),
-            quizzerIndividual(qNumber: 2, side: _name),
-            quizzerIndividual(qNumber: 3, side: _name),
-            quizzerIndividual(qNumber: 4, side: _name),
-            quizzerIndividual(qNumber: 5, side: _name),
-            quizzerIndividual(qNumber: 6, side: _name),
-            quizzerIndividual(qNumber: 7, side: _name)
+            quizzerIndividual(qNumber: 1, side: _name, qName: q1),
+            quizzerIndividual(qNumber: 2, side: _name, qName: q2),
+            quizzerIndividual(qNumber: 3, side: _name, qName: q3),
+            quizzerIndividual(qNumber: 4, side: _name, qName: q4),
+            quizzerIndividual(qNumber: 5, side: _name, qName: q5),
+            quizzerIndividual(qNumber: 6, side: _name, qName: q6),
+            quizzerIndividual(qNumber: 7, side: _name, qName: q7)
         ]
     }
 }
 class quizStuff: ObservableObject {
+    @EnvironmentObject var appState: AppState
+
+
     @Published public var left: side
     @Published public var right: side
     @Published public var empty: side
@@ -182,8 +186,23 @@ class quizStuff: ObservableObject {
         return nil
     }
     init (leftName: String, leftColor: Color, rightName: String, rightColor: Color) {
-        left  = side( name: "Left" , color: leftColor)
-        right = side( name: "Right", color: rightColor)
+        left  = side( name: teamArray[ leftSel ].name, color: leftColor,
+            q1: teamArray[leftSel].quizzers[0].name,
+            q2: teamArray[leftSel].quizzers[1].name,
+            q3: teamArray[leftSel].quizzers[2].name,
+            q4: teamArray[leftSel].quizzers[3].name,
+            q5: teamArray[leftSel].quizzers[4].name,
+            q6: teamArray[leftSel].quizzers[5].name,
+            q7: teamArray[leftSel].quizzers[6].name )
+        
+        right = side( name: teamArray[rightSel].name, color: rightColor,
+                      q1: teamArray[rightSel].quizzers[0].name,
+                      q2: teamArray[rightSel].quizzers[1].name,
+                      q3: teamArray[rightSel].quizzers[2].name,
+                      q4: teamArray[rightSel].quizzers[3].name,
+                      q5: teamArray[rightSel].quizzers[4].name,
+                      q6: teamArray[rightSel].quizzers[5].name,
+                      q7: teamArray[rightSel].quizzers[6].name )
         empty = side( name: "empty", color: .gray)
         sideActive = side(name: "empty", color: .gray)
     }

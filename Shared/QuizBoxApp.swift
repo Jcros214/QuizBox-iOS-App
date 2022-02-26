@@ -8,20 +8,27 @@
 import SwiftUI
 
 // Define your observable
-class AppState: ObservableObject {
+public class AppState: ObservableObject {
     @Published var UiState: Int
     @Published var UiTestState: Int
+    
+    @Published var leftSelection: Int
+    @Published var rightSelection: Int
+    
+    
     
     init(hasOnboarded: Int, isTesting: Int) {
         self.UiState = hasOnboarded
         self.UiTestState = isTesting
         
+        self.leftSelection = 0
+        self.rightSelection = 0
     }
 }
 
 @main
 struct QuizBoxApp: App {
-    @StateObject var appState = AppState(hasOnboarded: 4, isTesting: 1)
+    @StateObject var appState = AppState(hasOnboarded: 6, isTesting: 1)
     @ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     var body: some Scene {
         WindowGroup {
@@ -45,8 +52,8 @@ struct QuizBoxApp: App {
                     TextView()
                         .environmentObject(appState)
                         .environmentObject(quiz)
-
-                
+                    
+                    
                 case 6:
                     teamSetup()
                         .environmentObject(appState)
