@@ -1,12 +1,20 @@
 //
-//  ActsView.swift
+//  TextData.swift
 //  QuizBox
 //
-//  Created by Jonathan Crosby on 12/21/21.
+//  Created by Jonathan Crosby on 2/27/22.
 //
 
+//var ICOR = [
+//    [iCorR<Array<String>>, iCorQ<Array<Int>>, iCorT<Array<NSString>>]
+//
+//] as [Array]
 
-let iCor1 =  [
+
+import Foundation
+
+
+let  iCor1R = [
     "Paul, called to be an apostle of Jesus Christ through the will of God, and Sosthenes our brother,",
     "Unto the church of God which is at Corinth, to them that are sanctified in Christ Jesus, called to be saints, with all that in every place call upon the name of Jesus Christ our Lord, both theirs and ours:",
     "Grace be unto you, and peace, from God our Father, and from the Lord Jesus Christ.",
@@ -39,25 +47,25 @@ let iCor1 =  [
     "But of him are ye in Christ Jesus, who of God is made unto us wisdom, and righteousness, and sanctification, and redemption:",
     "That, according as it is written, He that glorieth, let him glory in the Lord."
 ] as [String]
-let iCor2 =  [
+let  iCor2R = [
     "And I‭, brethren‭, when I came‭‭ to‭ you‭, came‭‭ not‭ with‭ excellency‭ of speech‭ or‭ of wisdom‭, declaring‭‭ unto you‭ the testimony‭ of God‭.",
-    "‭For‭ I determined‭‭ not‭ to know‭‭ any thing‭ among‭ you‭, save‭ Jesus‭ Christ‭, and‭ him‭ crucified‭‭.",
-    "‭And‭ I‭ was‭‭ with‭ you‭ in‭ weakness‭, and‭ in‭ fear‭, and‭ in‭ much‭ trembling‭.",
-    "‭And‭ my‭ speech‭ and‭ my‭ preaching‭ was not‭ with‭ enticing‭ words‭ of man’s‭ wisdom‭, but‭ in‭ demonstration‭ of the Spirit‭ and‭ of power‭:",
-    "‭That‭ your‭ faith‭ should‭‭ not‭ stand‭‭ in‭ the wisdom‭ of men‭, but‭ in‭ the power‭ of God‭.",
-    "‭Howbeit‭ we speak‭‭ wisdom‭ among‭ them that are perfect‭: yet‭ not‭ the wisdom‭ of this‭ world‭, nor‭ of the princes‭ of this‭ world‭, that come to nought‭‭:",
-    "‭But‭ we speak‭‭ the wisdom‭ of God‭ in‭ a mystery‭, even the hidden‭‭ wisdom, which‭ God‭ ordained‭‭ before‭ the world‭ unto‭ our‭ glory‭:",
-    "‭Which‭ none‭ of the princes‭ of this‭ world‭ knew‭‭: for‭‭ had they known‭‭ it, they‭ would‭‭ not‭ have crucified‭‭ the Lord‭ of glory‭.",
-    "‭But‭ as‭ it is written‭‭,‭ Eye‭ hath‭‭ not‭ seen‭‭, nor‭‭ ear‭ heard‭‭, neither‭‭ have entered‭‭ into‭ the heart‭ of man‭, the things which‭ God‭ hath prepared‭‭ for them that love‭‭ him‭.",
-    "‭But‭ God‭ hath revealed‭‭ them unto us‭ by‭ his‭ Spirit‭: for‭ the Spirit‭ searcheth‭‭ all things‭, yea‭, the deep things‭ of God‭.",
-    "‭For‭ what‭ man‭ knoweth‭‭ the things‭ of a man‭, save‭ the spirit‭ of man‭ which‭ is in‭ him‭? even‭ so‭ the things‭ of God‭ knoweth‭‭ no man‭, but‭ the Spirit‭ of God‭.",
-    "‭Now‭ we‭ have received‭‭, not‭ the spirit‭ of the world‭, but‭ the spirit‭ which‭ is of‭ God‭; that‭ we might know‭‭ the things that are freely given‭‭ to us‭ of‭ God‭.",
-    "‭Which things‭ also‭ we speak‭‭, not‭ in‭ the words‭ which man’s‭ wisdom‭ teacheth‭, but‭ which the Holy‭ Ghost‭ teacheth‭‭; comparing‭‭ spiritual things‭ with spiritual‭.",
-    "‭But‭ the natural‭ man‭ receiveth‭‭ not‭ the things‭ of the Spirit‭ of God‭: for‭ they are‭‭ foolishness‭ unto him‭: neither‭‭ can‭‭ he know‭‭ them, because‭ they are spiritually‭ discerned‭‭.",
-    "‭But‭ he that is spiritual‭ judgeth‭‭‭ all things‭, yet‭ he himself‭ is judged‭‭ of‭ no man‭.",
-    "‭For‭ who‭ hath known‭‭ the mind‭ of the Lord‭, that‭ he may instruct‭‭ him‭? But‭ we‭ have‭‭ the mind‭ of Christ‭."
+    "For‭ I determined‭‭ not‭ to know‭‭ any thing‭ among‭ you‭, save‭ Jesus‭ Christ‭, and‭ him‭ crucified‭‭.",
+    "And‭ I‭ was‭‭ with‭ you‭ in‭ weakness‭, and‭ in‭ fear‭, and‭ in‭ much‭ trembling‭.",
+    "And‭ my‭ speech‭ and‭ my‭ preaching‭ was not‭ with‭ enticing‭ words‭ of man’s‭ wisdom‭, but‭ in‭ demonstration‭ of the Spirit‭ and‭ of power‭:",
+    "That‭ your‭ faith‭ should‭‭ not‭ stand‭‭ in‭ the wisdom‭ of men‭, but‭ in‭ the power‭ of God‭.",
+    "Howbeit‭ we speak‭‭ wisdom‭ among‭ them that are perfect‭: yet‭ not‭ the wisdom‭ of this‭ world‭, nor‭ of the princes‭ of this‭ world‭, that come to nought‭‭:",
+    "But‭ we speak‭‭ the wisdom‭ of God‭ in‭ a mystery‭, even the hidden‭‭ wisdom, which‭ God‭ ordained‭‭ before‭ the world‭ unto‭ our‭ glory‭:",
+    "Which‭ none‭ of the princes‭ of this‭ world‭ knew‭‭: for‭‭ had they known‭‭ it, they‭ would‭‭ not‭ have crucified‭‭ the Lord‭ of glory‭.",
+    "But‭ as‭ it is written‭‭,‭ Eye‭ hath‭‭ not‭ seen‭‭, nor‭‭ ear‭ heard‭‭, neither‭‭ have entered‭‭ into‭ the heart‭ of man‭, the things which‭ God‭ hath prepared‭‭ for them that love‭‭ him‭.",
+    "But‭ God‭ hath revealed‭‭ them unto us‭ by‭ his‭ Spirit‭: for‭ the Spirit‭ searcheth‭‭ all things‭, yea‭, the deep things‭ of God‭.",
+    "For‭ what‭ man‭ knoweth‭‭ the things‭ of a man‭, save‭ the spirit‭ of man‭ which‭ is in‭ him‭? even‭ so‭ the things‭ of God‭ knoweth‭‭ no man‭, but‭ the Spirit‭ of God‭.",
+    "Now‭ we‭ have received‭‭, not‭ the spirit‭ of the world‭, but‭ the spirit‭ which‭ is of‭ God‭; that‭ we might know‭‭ the things that are freely given‭‭ to us‭ of‭ God‭.",
+    "Which things‭ also‭ we speak‭‭, not‭ in‭ the words‭ which man’s‭ wisdom‭ teacheth‭, but‭ which the Holy‭ Ghost‭ teacheth‭‭; comparing‭‭ spiritual things‭ with spiritual‭.",
+    "But‭ the natural‭ man‭ receiveth‭‭ not‭ the things‭ of the Spirit‭ of God‭: for‭ they are‭‭ foolishness‭ unto him‭: neither‭‭ can‭‭ he know‭‭ them, because‭ they are spiritually‭ discerned‭‭.",
+    "But‭ he that is spiritual‭ judgeth‭‭‭ all things‭, yet‭ he himself‭ is judged‭‭ of‭ no man‭.",
+    "For‭ who‭ hath known‭‭ the mind‭ of the Lord‭, that‭ he may instruct‭‭ him‭? But‭ we‭ have‭‭ the mind‭ of Christ‭."
 ] as [String]
-let iCor3 =  [
+let  iCor3R = [
     "And‭ I‭, brethren‭, could‭‭ not‭ speak‭‭ unto you‭ as‭ unto spiritual‭, but‭ as‭ unto carnal‭, [even] as‭ unto babes‭ in‭ Christ‭.",
     "‭I have fed‭‭ you‭ with milk‭, and‭ not‭ with meat‭: for‭ hitherto‭‭ ye were‭‭ not‭ able‭‭ [to bear it], neither‭‭ yet‭ now‭ are ye able‭‭.",
     "‭For‭ ye are‭‭ yet‭ carnal‭: for‭ whereas‭ [there is] among‭ you‭ envying‭, and‭ strife‭, and‭ divisions‭, are ye‭‭ not‭ carnal‭, and‭ walk‭‭ as‭ men‭?",
@@ -82,9 +90,9 @@ let iCor3 =  [
     "‭Whether‭ Paul‭, or‭ Apollos‭, or‭ Cephas‭, or‭ the world‭, or‭ life‭, or‭ death‭, or‭ things present‭‭, or‭ things to come‭‭; all‭ are‭‭ yours‭;",
     "‭And‭ ye‭ are Christ’s‭; and‭ Christ‭ [is] God’s‭."
 ] as [String]
-let iCor4 =  [
+let  iCor4R = [
     "Let‭‭ a man‭ so‭ account‭‭ of us‭, as‭ of the ministers‭ of Christ‭, and‭ stewards‭ of the mysteries‭ of God‭.",
-    "‭‭ Moreover‭ it is required‭‭ in‭ stewards‭, that‭ a man‭ be found‭‭ faithful‭.",
+    "Moreover‭ it is required‭‭ in‭ stewards‭, that‭ a man‭ be found‭‭ faithful‭.",
     "‭But‭ with me‭ it is‭‭ a very small thing‭‭ that‭ I should be judged‭‭ of‭ you‭, or‭ of‭ man’s‭ judgment‭: yea‭, I judge‭‭ not‭ mine own self‭.",
     "‭For‭ I know‭‭ nothing‭ by myself‭; yet‭ am I‭‭ not‭ hereby‭‭ justified‭‭: but‭ he that judgeth‭‭ me‭ is‭‭ the Lord‭.",
     "‭Therefore‭ judge‭‭ nothing‭‭ before‭ the time‭, until‭‭ the Lord‭ come‭‭, who‭ both‭ will bring to light‭‭ the hidden things‭ of darkness‭, and‭ will make manifest‭‭ the counsels‭ of the hearts‭: and‭ then‭ shall every man‭ have‭‭ praise‭ of‭ God‭.",
@@ -105,142 +113,79 @@ let iCor4 =  [
     "‭For‭ the kingdom‭ of God‭ [is] not‭ in‭ word‭, but‭ in‭ power‭.",
     "‭What‭ will ye‭‭? shall I come‭‭ unto‭ you‭ with‭ a rod‭, or‭ in‭ love‭, and‭ [in] the spirit‭ of meekness‭?"
 ] as [String]
-let iCor5 =  ["Text not imported yet; coming soon"] as [String]
-let iCor6 =  ["Text not imported yet; coming soon"] as [String]
-let iCor7 =  ["Text not imported yet; coming soon"] as [String]
-let iCor8 =  ["Text not imported yet; coming soon"] as [String]
-let iCor9 =  ["Text not imported yet; coming soon"] as [String]
-let iCor10 = ["Text not imported yet; coming soon"] as [String]
-let iCor11 = ["Text not imported yet; coming soon"] as [String]
-let iCor12 = ["Text not imported yet; coming soon"] as [String]
-let iCor13 = ["Text not imported yet; coming soon"] as [String]
-let iCor14 = ["Text not imported yet; coming soon"] as [String]
-let iCor15 = ["Text not imported yet; coming soon"] as [String]
-let iCor16 = ["Text not imported yet; coming soon"] as [String]
 
-let iCor1Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor2Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor3Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor4Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor5Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor6Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor7Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor8Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor9Q  = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor10Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor11Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor12Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor13Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor14Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor15Q = ["1","3","5","9","11","13","15","17","19"] as [String]
-let iCor16Q = ["1","3","5","9","11","13","15","17","19"] as [String]
+let iCorR = [
+    iCor1R,
+    iCor2R,
+    iCor3R,
+    iCor4R
+]
 
 
-let ICor = [
-    [iCor1, iCor1Q ],
-    [iCor2, iCor2Q ],
-    [iCor3, iCor3Q ],
-    [iCor4, iCor4Q ],
-    [iCor5, iCor5Q ],
-    [iCor6, iCor6Q ],
-    [iCor7, iCor7Q ],
-    [iCor8, iCor8Q ],
-    [iCor9, iCor9Q ],
-    [iCor10,iCor10Q],
-    [iCor11,iCor11Q],
-    [iCor12,iCor12Q],
-    [iCor13,iCor13Q],
-    [iCor14,iCor14Q],
-    [iCor15,iCor15Q],
-    [iCor16,iCor16Q]
-] as [Array<Array<String>>]
-
-import SwiftUI
+var iCor1T = iCor1R.map { NSMutableAttributedString(string: $0) }
+var iCor2T = iCor2R.map { NSMutableAttributedString(string: $0) }
+var iCor3T = iCor3R.map { NSMutableAttributedString(string: $0) }
+var iCor4T = iCor4R.map { NSMutableAttributedString(string: $0) }
 
 
-struct TextView: View {
-    @EnvironmentObject var appState: AppState
-    //    @ObservedObject public var acts = ACTS()
-    @State var selection = 0
-    
-    var body: some View {
-        VStack {
-            Button {
-                appState.UiState = 1
-            } label: {
-                Text("Go Back")
+
+let iCor1Q  = [9 ,17,18,21,25,27,28,29,31] as [Int]
+let iCor2Q  = [1 ,2 ,4 ,5 ,8 ,9 ,10,14,15] as [Int]
+let iCor3Q  = [1 ,3 ,6 ,7 ,11,13,16,17,19] as [Int]
+let iCor4Q  = [2 ,5 ,7 ,10,14,15,16,17,20] as [Int]
+
+var text = [] as [NSMutableAttributedString]
+var allWords = [""]
+var onceUsed = [""]
+var twiceUsed = [""]
+
+
+public func generateKeywords() {
+    if (allWords == [""]) {
+        for i in Range(0...ICorTEXT.count-1) {
+            text.append(contentsOf: ICorTEXT[i])
+        }
+        for i in text  {
+            for j in i.string.components(separatedBy: " ") {
+                allWords.append(j)
             }
-            ScrollView {
-                HStack {
-                    //Text("Acts 1").font(.title).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.bottom)
-                    Picker("Chapter Picker", selection: $selection) {
-                        Group {
-                            Text("I Corinthians 1 ").tag(0)
-                            Text("I Corinthians 2 ").tag(1)
-                            Text("I Corinthians 3 ").tag(2)
-                            Text("I Corinthians 4 ").tag(3)
-                            Text("I Corinthians 5 ").tag(4)
-                            Text("I Corinthians 6 ").tag(5)
-                            Text("I Corinthians 7 ").tag(6)
-                            Text("I Corinthians 8 ").tag(7)
-                            Text("I Corinthians 9 ").tag(8)
-                            Text("I Corinthians 10").tag(9)
-                        }
-                        Group {
-                            Text("I Corinthians 11").tag(10)
-                            Text("I Corinthians 12").tag(11)
-                            Text("I Corinthians 13").tag(12)
-                            Text("I Corinthians 14").tag(13)
-                            Text("I Corinthians 15").font(.title).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.bottom).tag(27).tag(14)
-                        }
-                    }.foregroundColor(Color.red)
-                }
-                VStack(alignment: .leading){
-                    ForEach(Range(0...((ICor[selection][0]).count-1)), id: \.self) { i in
-                        HStack {
-                            VStack {
-                                if (ICor[selection][1].contains(String(i+1))) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color("AccentColor"))
-                                            .frame(width: 30, height: 30, alignment: .center)
-                                        Text("\(i+1) ")
-                                            .fontWeight(.bold)
-                                            .foregroundColor(Color("buttonColor"))
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    
-                                }
-                                else {
-                                    Text("\(i+1) ")
-                                        .foregroundColor(Color("buttonColor"))
-                                        .frame(width: 30, height: 30, alignment: .center)
+        }
+        for i in allWords {
+            if(allWords.filter{$0 == i}.count==1) {
+                onceUsed.append(i)
+            }
+            if(allWords.filter{$0 == i}.count==2 && twiceUsed.filter{$0 == i}.count==0) {
+                twiceUsed.append(i)
+            }
+        }
 
-                                }
-                                Spacer()
-                            }
-                            Text(ICor[selection][0][i])
-                        }.padding(.bottom, 2.0)
-                    }
+        for c in Range(0...ICorTEXT.count-1) { //for each chapter
+            for v in Range(0...ICorTEXT[c].count-1) { //for each verse
+                for w in (ICorTEXT[c][v].string) {
+                    
                 }
             }
         }
+        
+//        for i in onceUsed {
+//            for c in Range(0...ICorTEXT.count-1) {
+//                for v in ICorTEXT[c] {
+//                    if let range = v.range(of: i) {
+//                        //v.addAttributes(.font, range: range)
+//                    } else {
+//
+//                    }
+//                }
+//            }
+//        }
     }
 }
 
-struct ActsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextView()
-    }
-}
 
-/**
- 
- ForEach() {
- HStack() {
- 
- }
- 
- }
- 
- */
+
+var ICorTEXT = [
+    iCor1T,
+    iCor2T,
+    iCor3T,
+    iCor4T
+] as [[NSMutableAttributedString]]

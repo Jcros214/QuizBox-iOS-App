@@ -87,29 +87,29 @@ struct mainQuizMaster: View {
                     }
                 } // Right jump
             } //TEMP: Choose Team (test quiz.jump())
-            Spacer()
-            Group {
+            Spacer ()
+            Group  {
                 Text("Question #\(quiz.questionNum):")
                 Text("Test Field; question integration in process")
-                
                 Text("Answer: ")
                 Text("Test Field; question integration in prosses")
             } //Q/A
-            Spacer()
-            ZStack {
-                
+            Spacer ()
+            VStack {
+                Text(quiz.sideActive._name)
                 Picker("Quizzer Picker", selection: $quiz.quizerPicker) {
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[0].name).tag(0)} else {Text(quiz.left.quizzer[0].name).tag(0)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[1].name).tag(1)} else {Text(quiz.left.quizzer[1].name).tag(1)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[2].name).tag(2)} else {Text(quiz.left.quizzer[2].name).tag(2)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[3].name).tag(3)} else {Text(quiz.left.quizzer[3].name).tag(3)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[4].name).tag(4)} else {Text(quiz.left.quizzer[4].name).tag(4)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[5].name).tag(5)} else {Text(quiz.left.quizzer[5].name).tag(5)}
-                    if (quiz.activeSide) {Text(quiz.right.quizzer[6].name).tag(6)} else {Text(quiz.left.quizzer[6].name).tag(6)}
-                    
+                    if (quiz.sideActive._name != "None") {
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[0].name).tag(0)} else {Text(quiz.left.quizzer[0].name).tag(0)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[1].name).tag(1)} else {Text(quiz.left.quizzer[1].name).tag(1)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[2].name).tag(2)} else {Text(quiz.left.quizzer[2].name).tag(2)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[3].name).tag(3)} else {Text(quiz.left.quizzer[3].name).tag(3)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[4].name).tag(4)} else {Text(quiz.left.quizzer[4].name).tag(4)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[5].name).tag(5)} else {Text(quiz.left.quizzer[5].name).tag(5)}
+                        if (quiz.activeSide) {Text(quiz.right.quizzer[6].name).tag(6)} else {Text(quiz.left.quizzer[6].name).tag(6)}
+                    }
                 }.foregroundColor(Color.orange)
             }//Quizzer Picker
-            Spacer()
+            Spacer ()
             VStack {
                 if appState.UiTestState==0 {
                     Group  {
@@ -168,7 +168,9 @@ struct mainQuizMaster: View {
                 } //Correct/incorrect bar
                 HStack {
                     Spacer()
-                    Button("Text") {appState.UiState = 4}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
+                    Button("Text") {appState.UiState = 4
+                        generateKeywords()
+                    }.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
                     Spacer()
                     Button("Foul") {quiz.foul()}.buttonStyle(secButton()).frame(width: 85, height: 85, alignment: .center)
                     Spacer()

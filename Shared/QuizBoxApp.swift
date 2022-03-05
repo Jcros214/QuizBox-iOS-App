@@ -28,7 +28,7 @@ public class AppState: ObservableObject {
 
 @main
 struct QuizBoxApp: App {
-    @StateObject var appState = AppState(hasOnboarded: 6, isTesting: 1)
+    @StateObject var appState = AppState(hasOnboarded: 1, isTesting: 1)
     @ObservedObject public var quiz = quizStuff(leftName: "left", leftColor: .mint, rightName: "right", rightColor: .cyan)
     var body: some Scene {
         WindowGroup {

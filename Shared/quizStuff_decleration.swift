@@ -4,7 +4,6 @@
 //
 //  Created by Jonathan Crosby on 1/16/22.
 //
-
 /*
  
  Results:
@@ -60,8 +59,6 @@ class side {
     }
 }
 class quizStuff: ObservableObject {
-    @EnvironmentObject var appState: AppState
-
 
     @Published public var left: side
     @Published public var right: side
@@ -81,13 +78,12 @@ class quizStuff: ObservableObject {
         4: Color("standing")
     ]
     @Published var boxState = 0
-    @Published var quizerPicker = 1
+    @Published var quizerPicker = 0
     @Published var teamPicker = 0
     @Published var activeSide: Bool = false
     @Published var sideActive: side
     @Published var showQuestions = false
 
-    
     func disArm() {
         left.isSelected = false
         right.isSelected = false
@@ -194,7 +190,6 @@ class quizStuff: ObservableObject {
             q5: teamArray[leftSel].quizzers[4].name,
             q6: teamArray[leftSel].quizzers[5].name,
             q7: teamArray[leftSel].quizzers[6].name )
-        
         right = side( name: teamArray[rightSel].name, color: rightColor,
                       q1: teamArray[rightSel].quizzers[0].name,
                       q2: teamArray[rightSel].quizzers[1].name,
@@ -204,7 +199,7 @@ class quizStuff: ObservableObject {
                       q6: teamArray[rightSel].quizzers[5].name,
                       q7: teamArray[rightSel].quizzers[6].name )
         empty = side( name: "empty", color: .gray)
-        sideActive = side(name: "empty", color: .gray)
+        sideActive = side(name: "None", color: .gray)
     }
     
 }
